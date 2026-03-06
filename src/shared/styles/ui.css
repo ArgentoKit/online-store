@@ -1,0 +1,75 @@
+.btn {
+  @apply inline-flex shrink-0 items-center justify-center gap-2 relative rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+}
+
+.btn-default {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.btn-destructive {
+  @apply bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40;
+}
+
+.btn-outline {
+  @apply border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
+
+.btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50;
+}
+
+.btn-link {
+  @apply text-primary underline-offset-4 hover:underline;
+}
+
+.btn-green {
+  @apply bg-bright-green text-white;
+}
+
+.btn-green:hover {
+  @apply scale-110;
+}
+
+.btn-green:active {
+  @apply scale-95;
+}
+
+.btn-disabled {
+  @apply bg-medium-grey;
+}
+
+.btn-size-default {
+  @apply h-9 px-4 py-2 has-[>svg]:px-3;
+}
+
+.btn-size-xs {
+  @apply h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3;
+}
+
+.btn-size-sm {
+  @apply h-8 px-3 py-1.5 has-[>svg]:px-2;
+}
+
+.btn-size-lg {
+  @apply h-10 px-5 py-3 has-[>svg]:px-4;
+}
+
+.btn-size-b30 {
+  @apply h-[30px] py-[7px] px-[25px] rounded-[18px];
+}
+
+.btn-size-b40 {
+  @apply h-[40px] py-[12px] px-[25px] rounded-[10px];
+}
+
+.btn-icon-only {
+  @apply p-2;
+}
+
+.btn-icon-right {
+  @apply pl-4 pr-[25px];
+}

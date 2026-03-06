@@ -1,5 +1,5 @@
-import { BottomHeader } from '@/shared/ui/header/bottom-header'
-import { TopHeader } from '@/shared/ui/header/top-header'
+import { BottomHeader } from './components/bottom-header'
+import { TopHeader } from './components/top-header'
 
 export function Header() {
   return (

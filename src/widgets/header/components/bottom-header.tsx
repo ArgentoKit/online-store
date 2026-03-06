@@ -7,7 +7,8 @@ import Charity from '@/shared/assets/icons/charity.svg'
 import CharityHover from '@/shared/assets/icons/charity-hover.svg'
 import Shop from '@/shared/assets/icons/shop.svg'
 import ShopHover from '@/shared/assets/icons/shop-hover.svg'
-import { InputSearch } from './search'
+import { Button } from '@/shared/ui/button'
+import { InputSearch } from '@/shared/ui/search'
 
 const bottomMenuLinks = {
   announcements: {
@@ -54,6 +55,9 @@ export function BottomHeader() {
           ))}
         </ul>
         <InputSearch />
+        <Button variant='green' size='b30'>
+          Подать объявление
+        </Button>
       </div>
     </div>
   )

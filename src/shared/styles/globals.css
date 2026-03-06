@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "Norms";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("@/shared/assets/fonts/norms/400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Norms";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("@/shared/assets/fonts/norms/500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Norms";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("@/shared/assets/fonts/norms/700.woff2") format("woff2");
+}
+
+@import "tailwindcss";
+@import "./ui.css";
+@import "./theme.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+
+  @apply overflow-x-clip;
+  @apply font-primary text-t16 text-foreground min-h-screen;
+  @apply transition-all;
+}
+
+@utility container {
+  width: min(100% - 32px, 1170px);
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+.menu-hover {
+  position: relative;
+}
+
+.menu-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-bright-green);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.menu-hover:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+input {
+  @apply outline-none bg-white;
+}
