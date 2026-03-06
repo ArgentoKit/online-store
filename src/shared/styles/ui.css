@@ -71,5 +71,15 @@
 }
 
 .btn-icon-right {
-  @apply pl-4 pr-[25px];
+  @apply gap-4 pr-[25px];
+}
+
+/* prevent layout shift when links become bold on hover by reserving width */
+a[data-title]::before {
+  display: block;
+  content: attr(data-title);
+  font-weight: 700; /* matches hover:bold */
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
 }

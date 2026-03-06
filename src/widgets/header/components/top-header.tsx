@@ -1,6 +1,5 @@
-import ArrowDown from '@/shared/assets/icons/arrow-down.svg'
-import Geo from '@/shared/assets/icons/geo.svg'
 import Person from '@/shared/assets/icons/person.svg'
+import { Location } from '@/shared/ui/location'
 import { Logo } from '@/shared/ui/logo'
 
 const topMenuLinks = {
@@ -42,11 +41,7 @@ export function TopHeader() {
           </ul>
         </nav>
         <div className='flex gap-7.5'>
-          <div className='flex items-center gap-2.5 cursor-pointer'>
-            <Geo className='relative -top-0.5' />
-            <span className='inline-block text-t14 text-dark-grey/80'>Прага</span>
-            <ArrowDown />
-          </div>
+          <Location />
           <a href='' className='flex items-center gap-2.5'>
             <Person />
             <span className='text-t14 font-medium text-dark-grey'>Вход/ регистрация</span>

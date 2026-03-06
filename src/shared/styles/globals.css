@@ -37,7 +37,7 @@ body {
   text-rendering: optimizeLegibility;
 
   @apply overflow-x-clip;
-  @apply font-primary text-t16 text-foreground min-h-screen;
+  @apply font-primary text-t14 text-foreground min-h-screen;
   @apply transition-all;
 }
 
