@@ -6,7 +6,12 @@
     "clientKind": "git"
   },
   "files": {
-    "includes": ["**", "!node_modules", "!.next", "!ft-tailwind-kit", "!package-lock.json"]
+    "includes": [
+      "apps/**",
+      "!**/node_modules",
+      "!**/.next",
+      "!package-lock.json"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -62,7 +67,10 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)", "**/*.story.@(ts|tsx|js|jsx|mjs|cjs)"],
+      "includes": [
+        "**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)",
+        "**/*.story.@(ts|tsx|js|jsx|mjs|cjs)"
+      ],
       "linter": {
         "rules": {
           "correctness": {
@@ -105,6 +113,22 @@
           }
         }
       }
+    },
+    {
+      "includes": [
+        "apps/api/**/*.ts",
+        "apps/api/**/*.tsx",
+        "apps/api/**/*.mts",
+        "apps/api/**/*.cts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useImportType": "off"
+          }
+        }
+      }
     }
   ]
 }
+
