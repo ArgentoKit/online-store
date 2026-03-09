@@ -9,6 +9,7 @@ async function bootstrap() {
     origin: ['http://localhost:3000'],
     credentials: true,
   })
+  app.setGlobalPrefix('api')
 
   await app.listen(4000)
 }

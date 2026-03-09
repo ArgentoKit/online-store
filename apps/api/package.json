@@ -2,6 +2,7 @@
   "name": "@online-store/api",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "nest start --watch",
     "build": "nest build",
@@ -9,12 +10,16 @@
     "start:prod": "node dist/main.js",
     "lint": "biome lint --write",
     "format": "biome format --write",
-    "check": "biome check"
+    "check": "biome check",
+    "db:migrate": "pnpm prisma migrate dev",
+    "db:generate": "pnpm prisma generate",
+    "db:push": "pnpm prisma db push"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "dotenv": "^17.3.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -23,7 +28,8 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.19.15",
+    "prisma": "^7.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.0"
   }
