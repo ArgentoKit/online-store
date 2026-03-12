@@ -10,6 +10,7 @@ async function bootstrap() {
     credentials: true,
   })
   app.setGlobalPrefix('api')
+  app.enableShutdownHooks()
 
   await app.listen(4000)
 }
