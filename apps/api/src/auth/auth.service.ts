@@ -11,7 +11,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService
-  ) { }
+  ) {}
 
   async getNewTokens(refreshToken: string) {
     const result = await this.jwt.verifyAsync(refreshToken)
@@ -19,8 +19,8 @@ export class AuthService {
 
     const user = await this.prisma.user.findUnique({
       where: {
-        id: result.id
-      }
+        id: result.id,
+      },
     })
 
     if (!user) {
@@ -31,7 +31,7 @@ export class AuthService {
 
     return {
       user: this.returnUserFields(user),
-      ...tokens
+      ...tokens,
     }
   }
 
@@ -41,7 +41,7 @@ export class AuthService {
 
     return {
       user: this.returnUserFields(user),
-      ...tokens
+      ...tokens,
     }
   }
 
@@ -68,7 +68,7 @@ export class AuthService {
 
     return {
       user: this.returnUserFields(user),
-      ...tokens
+      ...tokens,
     }
   }
 
@@ -90,11 +90,11 @@ export class AuthService {
     const data = { id: userId }
 
     const accessToken = this.jwt.sign(data, {
-      expiresIn: '1h'
+      expiresIn: '1h',
     })
 
     const refreshToken = this.jwt.sign(data, {
-      expiresIn: '7d'
+      expiresIn: '7d',
     })
 
     return { accessToken, refreshToken }
@@ -103,7 +103,7 @@ export class AuthService {
   private returnUserFields(user: User) {
     return {
       id: user.id,
-      email: user.email
+      email: user.email,
     }
   }
 }

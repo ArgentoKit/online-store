@@ -54,7 +54,7 @@
       "trailingCommas": "es5",
       "semicolons": "asNeeded",
       "arrowParentheses": "always",
-      "bracketSpacing": true,
+      "bracketSpacing": false,
       "bracketSameLine": false,
       "quoteStyle": "single",
       "attributePosition": "auto"
@@ -83,13 +83,20 @@
       }
     },
     {
-      "includes": [".storybook/main.@(js|cjs|mjs|ts)"],
+      "includes": [
+        ".storybook/main.@(js|cjs|mjs|ts)"
+      ],
       "linter": {
         "rules": {}
       }
     },
     {
-      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "includes": [
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.mts",
+        "**/*.cts"
+      ],
       "linter": {
         "rules": {
           "correctness": {
@@ -134,4 +141,3 @@
     }
   ]
 }
-
