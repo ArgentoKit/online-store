@@ -54,7 +54,7 @@
       "trailingCommas": "es5",
       "semicolons": "asNeeded",
       "arrowParentheses": "always",
-      "bracketSpacing": false,
+      "bracketSpacing": true,
       "bracketSameLine": false,
       "quoteStyle": "single",
       "attributePosition": "auto"
