@@ -1,13 +1,13 @@
-import { hash } from 'argon2'
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from '@/prisma.service'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { hash } from 'argon2'
 import { Prisma } from 'generated/prisma/client'
 import { returnUserObject } from './return-user.object'
 import { UserDto } from './user.dto'
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async byId(id: number, selectObject: Prisma.UserSelect = {}) {
     const user = await this.prisma.user.findUnique({
@@ -70,5 +70,7 @@ export class UserService {
         },
       },
     })
+
+    return { message: isExist ? 'Product removed from favorites' : 'Product added to favorites' }
   }
 }

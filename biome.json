@@ -139,5 +139,12 @@
         }
       }
     }
-  ]
+  ],
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
 }
