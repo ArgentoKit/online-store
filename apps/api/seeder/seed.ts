@@ -1,6 +1,6 @@
-import * as dotenv from 'dotenv'
 import { faker } from '@faker-js/faker'
 import { PrismaPg } from '@prisma/adapter-pg'
+import * as dotenv from 'dotenv'
 import { PrismaClient, Product } from '../generated/prisma/client'
 
 dotenv.config()
@@ -12,8 +12,9 @@ const createProducts = async (quantity: number) => {
   const products: Product[] = []
 
   for (let i = 0; i < quantity; i++) {
-    const productName = faker.commerce.productName()
+    const productName = `${faker.commerce.productName()} ${faker.string.alphanumeric(4)}`
     const categoryName = faker.commerce.department()
+    const categorySlug = faker.helpers.slugify(categoryName.toLowerCase())
 
     const product = await prisma.product.create({
       data: {
@@ -23,9 +24,12 @@ const createProducts = async (quantity: number) => {
         price: parseFloat(faker.commerce.price({ min: 10, max: 1000, dec: 2 })),
         images: Array.from({ length: faker.number.int({ min: 2, max: 6 }) }).map(() => faker.image.url()),
         category: {
-          create: {
-            name: categoryName,
-            slug: faker.helpers.slugify(categoryName.toLowerCase()),
+          connectOrCreate: {
+            where: { slug: categorySlug },
+            create: {
+              name: categoryName,
+              slug: categorySlug,
+            },
           },
         },
         reviews: {

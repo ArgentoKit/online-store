@@ -46,6 +46,7 @@
     "passport-jwt": "^4.0.1",
     "prisma": "^7.4.2",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.0"
   }
 }
