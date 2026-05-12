@@ -22,7 +22,7 @@ const createProducts = async (quantity: number) => {
         slug: faker.helpers.slugify(productName.toLowerCase()),
         description: faker.commerce.productDescription(),
         price: parseFloat(faker.commerce.price({ min: 10, max: 1000, dec: 2 })),
-        images: Array.from({ length: faker.number.int({ min: 2, max: 6 }) }).map(() => faker.image.url()),
+        images: Array.from({ length: faker.number.int({ min: 2, max: 6 }) }).map(() => faker.image.url({ width: 500, height: 500 })),
         category: {
           connectOrCreate: {
             where: { slug: categorySlug },

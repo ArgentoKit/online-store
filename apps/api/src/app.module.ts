@@ -8,9 +8,11 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
+import { StatisticsModule } from './statistics/statistics.module';
+import { PaginationModule } from './pagination/pagination.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, UserModule, ProductModule, ReviewModule, CategoryModule, OrderModule],
+  imports: [ConfigModule.forRoot(), AuthModule, UserModule, ProductModule, ReviewModule, CategoryModule, OrderModule, StatisticsModule, PaginationModule],
   controllers: [AppController],
   providers: [AppService],
 })

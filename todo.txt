@@ -1,1 +1,4 @@
 [] - Move the logic of retrieving the user outside of the auth service
+[] - Объединить byId, bySlug???
+
+[] - Create admin panel
