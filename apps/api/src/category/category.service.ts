@@ -45,17 +45,17 @@ export class CategoryService {
       data: {
         name: '',
         slug: '',
-      }
+      },
     })
   }
 
   async update(id: number, dto: CategoryDto) {
     return this.prisma.category.update({
-       where: { id },
-       data: {
+      where: { id },
+      data: {
         name: dto.name,
         slug: generateSlug(dto.name),
-       }
+      },
     })
   }
 

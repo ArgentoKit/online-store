@@ -1,20 +1,20 @@
-import { OrderService } from '@/order/order.service';
-import { UserService } from '@/user/user.service';
-import { Injectable } from '@nestjs/common';
+import { OrderService } from '@/order/order.service'
+import { UserService } from '@/user/user.service'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class StatisticsService {
   constructor(
     private userService: UserService,
-    private orderService: OrderService,
+    private orderService: OrderService
   ) {}
 
   async getMain(userId: number) {
     const user = await this.userService.byId(userId, {
       orders: {
         select: {
-          items: true
-        }
+          items: true,
+        },
       },
       reviews: true,
     })
@@ -37,7 +37,7 @@ export class StatisticsService {
       {
         name: 'Total Spent',
         value: totalSpent,
-      }
+      },
     ]
   }
 }

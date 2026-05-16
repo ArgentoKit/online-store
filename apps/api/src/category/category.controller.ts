@@ -1,7 +1,19 @@
-import { Auth } from '@/auth/decorators/auth.decorator';
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
-import { CategoryDto } from './category.dto';
-import { CategoryService } from './category.service';
+import { Auth } from '@/auth/decorators/auth.decorator'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common'
+import { CategoryDto } from './category.dto'
+import { CategoryService } from './category.service'
 
 @Controller('categories')
 export class CategoryController {

@@ -1,5 +1,5 @@
-import { returnUserObject } from "@/user/return-user.object";
-import { Prisma } from "generated/prisma/client";
+import { returnUserObject } from '@/user/return-user.object'
+import { Prisma } from 'generated/prisma/client'
 
 export const returnReview: Prisma.ReviewSelect = {
   id: true,
@@ -7,6 +7,6 @@ export const returnReview: Prisma.ReviewSelect = {
   rating: true,
   text: true,
   user: {
-    select: returnUserObject
-  }
+    select: returnUserObject,
+  },
 }

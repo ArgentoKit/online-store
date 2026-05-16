@@ -5,6 +5,13 @@ import { Injectable } from '@nestjs/common'
 export class OrderService {
   constructor(private prisma: PrismaService) {}
 
+  async getAll(userId: number) {
+    return this.prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+    })
+  }
+
   async getTotalSpentByUser(userId: number): Promise<number> {
     const rows = await this.prisma.$queryRaw<{ total: number }[]>`
       SELECT COALESCE(SUM(oi.price * oi.quantity), 0)::float AS total

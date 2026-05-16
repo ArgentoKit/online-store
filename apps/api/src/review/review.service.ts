@@ -23,23 +23,23 @@ export class ReviewService {
         product: {
           connect: {
             id: productId,
-          }
+          },
         },
         user: {
           connect: {
             id: userId,
-          }
-        }
-      }
+          },
+        },
+      },
     })
   }
 
   async getAverageRatingByProductId(productId: number) {
     return this.prisma.review
-    .aggregate({
-      where: { productId },
-      _avg: { rating: true },
-    })
-    .then(data => data._avg)
+      .aggregate({
+        where: { productId },
+        _avg: { rating: true },
+      })
+      .then((data) => data._avg)
   }
 }
