@@ -1,6 +1,6 @@
 import { PrismaService } from '@/prisma.service'
 import { Injectable } from '@nestjs/common'
-import { returnReview } from './return-review.object'
+import { returnReviewObject } from './return-review.object'
 import { ReviewDto } from './review.dto'
 
 @Injectable()
@@ -12,7 +12,7 @@ export class ReviewService {
       orderBy: {
         createdAt: 'desc',
       },
-      select: returnReview,
+      select: returnReviewObject,
     })
   }
 

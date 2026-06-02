@@ -2,7 +2,7 @@ import { PrismaService } from '@/prisma.service'
 import { generateSlug } from '@/utils/generate-slug'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { CategoryDto } from './category.dto'
-import { returnCategory } from './return-category.object'
+import { returnCategoryObject } from './return-category.object'
 
 @Injectable()
 export class CategoryService {
@@ -13,7 +13,7 @@ export class CategoryService {
       where: {
         id,
       },
-      select: returnCategory,
+      select: returnCategoryObject,
     })
 
     if (!category) throw new NotFoundException('Category not found')
@@ -26,7 +26,7 @@ export class CategoryService {
       where: {
         slug,
       },
-      select: returnCategory,
+      select: returnCategoryObject,
     })
 
     if (!category) throw new NotFoundException('Category not found')
@@ -36,7 +36,7 @@ export class CategoryService {
 
   async getAll() {
     return this.prisma.category.findMany({
-      select: returnCategory,
+      select: returnCategoryObject,
     })
   }
 

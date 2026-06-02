@@ -1,7 +1,7 @@
 import { returnUserObject } from '@/user/return-user.object'
 import { Prisma } from 'generated/prisma/client'
 
-export const returnReview: Prisma.ReviewSelect = {
+export const returnReviewObject: Prisma.ReviewSelect = {
   id: true,
   createdAt: true,
   rating: true,
