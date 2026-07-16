@@ -1,5 +1,5 @@
 import { Auth } from '@/auth/decorators/auth.decorator'
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common'
 import { GetAllProductDto } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
 import { ProductService } from './product.service'
@@ -16,12 +16,12 @@ export class ProductController {
 
   @Get(':id')
   @Auth()
-  async getProduct(@Param('id', ParseIntPipe) id: number) {
+  async getProduct(@Param('id') id: string) {
     return this.productService.byId(id)
   }
 
   @Get('similar/:id')
-  async getSimilar(@Param('id', ParseIntPipe) id: number) {
+  async getSimilar(@Param('id') id: string) {
     return this.productService.getSimilar(id)
   }
 
@@ -47,14 +47,14 @@ export class ProductController {
   @HttpCode(200)
   @Put(':id')
   @Auth()
-  async updateProduct(@Param('id', ParseIntPipe) id: number, @Body() dto:ProductDto) {
+  async updateProduct(@Param('id') id: string, @Body() dto:ProductDto) {
     return this.productService.update(id, dto)
   }
 
   @HttpCode(200)
   @Delete(':id')
   @Auth()
-  async deleteProduct(@Param('id', ParseIntPipe) id: number) {
+  async deleteProduct(@Param('id') id: string) {
      return this.productService.delete(id)
   }
 }

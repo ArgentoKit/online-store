@@ -1,6 +1,6 @@
 import { Auth } from '@/auth/decorators/auth.decorator'
 import { CurrentUser } from '@/auth/decorators/user.decorator'
-import { Body, Controller, Get, HttpCode, Param, Patch, Put, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Put, UsePipes, ValidationPipe } from '@nestjs/common'
 import { UserDto } from './user.dto'
 import { UserService } from './user.service'
 
@@ -10,7 +10,7 @@ export class UserController {
 
   @Get('profile')
   @Auth()
-  async getProfile(@CurrentUser('id') id: number) {
+  async getProfile(@CurrentUser('id') id: string) {
     return this.userService.byId(id)
   }
 
@@ -18,14 +18,20 @@ export class UserController {
   @HttpCode(200)
   @Auth()
   @Put('profile')
-  async updateProfile(@CurrentUser('id') id: number, @Body() dto: UserDto) {
+  async updateProfile(@CurrentUser('id') id: string, @Body() dto: UserDto) {
     return this.userService.updateProfile(id, dto)
   }
 
   @HttpCode(200)
   @Auth()
   @Patch('profile/favorites/:productId')
-  async toggleFavorite(@CurrentUser('id') id: number, @Param('productId') productId: string) {
-    return this.userService.toggleFavorite(id, +productId)
+  async toggleFavorite(@CurrentUser('id') id: string, @Param('productId') productId: string) {
+    return this.userService.toggleFavorite(id, productId)
+  }
+
+  @Delete('profile')
+  @Auth()
+  async deleteUser(@CurrentUser('id') id: string) {
+    return this.userService.deleteUser(id)
   }
 }

@@ -9,11 +9,9 @@ import { UserDto } from './user.dto'
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async byId(id: number, selectObject: Prisma.UserSelect = {}) {
+  async byId(id: string, selectObject: Prisma.UserSelect = {}) {
     const user = await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
       select: {
         ...returnUserObject,
         favorites: {
@@ -29,12 +27,12 @@ export class UserService {
       },
     })
 
-    if (!user) throw new Error('User not found')
+    if (!user) throw new NotFoundException('User not found')
 
     return user
   }
 
-  async updateProfile(id: number, dto: UserDto) {
+  async updateProfile(id: string, dto: UserDto) {
     const isSameUser = await this.prisma.user.findUnique({
       where: { email: dto.email },
     })
@@ -55,7 +53,7 @@ export class UserService {
     })
   }
 
-  async toggleFavorite(userId: number, productId: number) {
+  async toggleFavorite(userId: string, productId: string) {
     const user = await this.byId(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -72,5 +70,39 @@ export class UserService {
     })
 
     return { message: isExist ? 'Product removed from favorites' : 'Product added to favorites' }
+  }
+
+  async deleteUser(id: string) {
+    await this.byId(id)
+
+    return this.prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id },
+        data: { 
+          favorites: { set: [] } 
+        },
+      })
+
+      await tx.orderItem.deleteMany({
+        where: { 
+          order: { userId: id } 
+        },
+      })
+
+      await tx.review.deleteMany({
+        where: { userId: id },
+      })
+
+      await tx.order.deleteMany({
+        where: { userId: id },
+      })
+
+      await tx.product.updateMany({
+        where: { userId: id },
+        data: { userId: null },
+      })
+
+      return tx.user.delete({ where: { id } })
+    })
   }
 }

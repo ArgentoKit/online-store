@@ -72,7 +72,7 @@ export class ProductService {
     }
   }
 
-  async byId(id: number) {
+  async byId(id: string) {
     const product = await this.prisma.product.findUnique({
       where: { id },
       select: returnProductObjectFullest,
@@ -115,7 +115,7 @@ export class ProductService {
     return products
   }
 
-  async getSimilar(id: number) {
+  async getSimilar(id: string) {
     const currentProduct = await this.byId(id)
 
     if (!currentProduct.category) {
@@ -153,7 +153,7 @@ export class ProductService {
     return product.id
   }
 
-  async update(id: number, dto: ProductDto) {
+  async update(id: string, dto: ProductDto) {
     const { name, price, description, images, categoryId } = dto
 
     return this.prisma.product.update({
@@ -173,7 +173,7 @@ export class ProductService {
     })
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     return this.prisma.product.delete({ where: { id } })
   }
 }

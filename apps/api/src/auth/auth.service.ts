@@ -1,8 +1,8 @@
-import { hash, verify } from 'argon2'
+import { PrismaService } from '@/prisma.service'
 import { faker } from '@faker-js/faker'
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { PrismaService } from '@/prisma.service'
+import { hash, verify } from 'argon2'
 import { User } from 'generated/prisma/client'
 import { AuthDto } from './dto/auth.dto'
 
@@ -86,7 +86,7 @@ export class AuthService {
     return user
   }
 
-  private async issueTokens(userId: number) {
+  private async issueTokens(userId: string) {
     const data = { id: userId }
 
     const accessToken = this.jwt.sign(data, {
