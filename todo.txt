@@ -1,6 +1,7 @@
 [] - Move the logic of retrieving the user outside of the auth service
 [] - Объединить byId, bySlug???
 [] - Проверка на существование товара при создании отзыва
+[] - Проверка на существование категории при создании товара
 
 [] - Create admin panel
 [] - Добавить средний рейтинг в карточку товара

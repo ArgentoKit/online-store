@@ -6,11 +6,10 @@ import {
   Get,
   HttpCode,
   Param,
-  ParseIntPipe,
   Post,
   Put,
   UsePipes,
-  ValidationPipe,
+  ValidationPipe
 } from '@nestjs/common'
 import { CategoryDto } from './category.dto'
 import { CategoryService } from './category.service'
@@ -31,28 +30,28 @@ export class CategoryController {
 
   @Get(':id')
   @Auth()
-  async getById(@Param('id', ParseIntPipe) id: number) {
+  async getById(@Param('id') id: string) {
     return this.categoryService.byId(id)
   }
 
   @HttpCode(200)
   @Auth()
   @Post()
-  async create() {
-    return this.categoryService.create()
+  async create(@Body() dto: CategoryDto) {
+    return this.categoryService.create(dto)
   }
 
   @UsePipes(new ValidationPipe())
   @Auth()
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() dto: CategoryDto) {
+  async update(@Param('id') id: string, @Body() dto: CategoryDto) {
     return this.categoryService.update(id, dto)
   }
 
   @HttpCode(200)
   @Auth()
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
+  async delete(@Param('id') id: string) {
     return this.categoryService.delete(id)
   }
 }

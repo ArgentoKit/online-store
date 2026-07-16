@@ -1,7 +1,7 @@
+import '@/shared/styles/globals.css'
+import { cn } from '@/shared/utils/utils'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { cn } from '@/shared/utils/utils'
-import '@/shared/styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
