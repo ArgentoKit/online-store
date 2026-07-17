@@ -25,14 +25,18 @@ const createProducts = async (quantity: number) => {
         images: Array.from({ length: faker.number.int({ min: 2, max: 6 }) }).map(() =>
           faker.image.url({ width: 500, height: 500 })
         ),
-        category: {
-          connectOrCreate: {
-            where: { slug: categorySlug },
-            create: {
-              name: categoryName,
-              slug: categorySlug,
-            },
-          },
+        categories: {
+          create: {
+            category: {
+              connectOrCreate: {
+                where: { slug: categorySlug },
+                create: {
+                  name: categoryName,
+                  slug: categorySlug,
+                },
+              }
+            }
+          }
         },
         reviews: {
           create: {
@@ -40,7 +44,7 @@ const createProducts = async (quantity: number) => {
             text: faker.lorem.sentences(2),
             user: {
               connect: {
-                id: 'cmrnuaa8y00006koazsce9hvi',
+                id: 'cmrp013e30000vcoaiey0r4yo',
               },
             },
           },

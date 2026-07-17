@@ -41,10 +41,21 @@ export class CategoryService {
   }
 
   async create(dto: CategoryDto) {
+    if (dto.parentId) {
+      const parentCategory = await this.prisma.category.findUnique({
+        where: { id: dto.parentId },
+      })
+
+      if (!parentCategory) {
+        throw new NotFoundException('Parent category not found')
+      }
+    }
+
     return this.prisma.category.create({
       data: {
         name: dto.name,
         slug: generateSlug(dto.name),
+        parentId: dto.parentId || null,
       },
     })
   }

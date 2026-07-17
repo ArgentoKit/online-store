@@ -32,10 +32,14 @@ export class ProductService {
     const prismaSearchTermFilter: Prisma.ProductWhereInput = searchTerm ? {
       OR: [
         {
-          category: {
-            name: {
-              contains: searchTerm,
-              mode: 'insensitive'
+          categories: {
+            some: {
+              category: {
+                name: {
+                  contains: searchTerm,
+                  mode: 'insensitive'
+                }
+              }
             }
           }
         },
@@ -101,8 +105,12 @@ export class ProductService {
   async byCategory(categorySlug: string) {
     const products = await this.prisma.product.findMany({
       where: { 
-        category: {
-          slug: categorySlug
+        categories: {
+          some: {
+            category: {
+              slug: categorySlug
+            }
+          }
         }
       },
       select: returnProductObjectFullest,
@@ -118,14 +126,20 @@ export class ProductService {
   async getSimilar(id: string) {
     const currentProduct = await this.byId(id)
 
-    if (!currentProduct.category) {
+    if (!currentProduct.categories || currentProduct.categories.length === 0) {
       return []
     }
 
+    const categoryIds = currentProduct.categories.map(item => item.categoryId)
+
     const products = await this.prisma.product.findMany({
       where: {
-        category: {
-          name: currentProduct.category.name
+        categories: {
+          some: {
+            categoryId: {
+              in: categoryIds
+            }
+          }
         },
         NOT: {
           id: currentProduct.id
@@ -154,7 +168,11 @@ export class ProductService {
   }
 
   async update(id: string, dto: ProductDto) {
-    const { name, price, description, images, categoryId } = dto
+    const { name, price, description, images, categoryIds } = dto
+
+    await this.prisma.productCategory.deleteMany({
+      where: { productId: id }
+    })
 
     return this.prisma.product.update({
       where: { id },
@@ -164,10 +182,12 @@ export class ProductService {
         description,
         images,
         slug: generateSlug(name),
-        category: {
-          connect: {
-            id: categoryId
-          }
+        categories: {
+          create: categoryIds.map(categoryId => ({
+            category: {
+              connect: { id: categoryId }
+            }
+          }))
         }
       }
     })

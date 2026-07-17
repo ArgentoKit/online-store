@@ -17,7 +17,11 @@ export const returnProductObjectFullest: Prisma.ProductSelect = {
   reviews: {
     select: returnReviewObject,
   },
-  category: {
-    select: returnCategoryObject,
+  categories: {
+    select: {
+      category: {
+        select: returnCategoryObject,
+      }
+    },
   }
 }
