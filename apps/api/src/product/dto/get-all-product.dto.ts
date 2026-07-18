@@ -1,5 +1,5 @@
-import { PaginationDto } from "@/pagination/pagination.dto"
-import { IsEnum, IsOptional, IsString } from "class-validator"
+import { PaginationDto } from '@/pagination/pagination.dto'
+import { IsEnum, IsOptional, IsString } from 'class-validator'
 
 export enum ProductSortByEnum {
   HIGH_PRICE = 'high-price',

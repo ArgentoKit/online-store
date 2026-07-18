@@ -1,5 +1,17 @@
 import { Auth } from '@/auth/decorators/auth.decorator'
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common'
 import { GetAllProductDto } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
 import { ProductService } from './product.service'
@@ -34,7 +46,7 @@ export class ProductController {
   async getProductsByCategory(@Param('categorySlug') categorySlug: string) {
     return this.productService.byCategory(categorySlug)
   }
-  
+
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Auth()
@@ -47,7 +59,7 @@ export class ProductController {
   @HttpCode(200)
   @Put(':id')
   @Auth()
-  async updateProduct(@Param('id') id: string, @Body() dto:ProductDto) {
+  async updateProduct(@Param('id') id: string, @Body() dto: ProductDto) {
     return this.productService.update(id, dto)
   }
 
@@ -55,7 +67,6 @@ export class ProductController {
   @Delete(':id')
   @Auth()
   async deleteProduct(@Param('id') id: string) {
-     return this.productService.delete(id)
+    return this.productService.delete(id)
   }
 }
-  

@@ -34,9 +34,9 @@ const createProducts = async (quantity: number) => {
                   name: categoryName,
                   slug: categorySlug,
                 },
-              }
-            }
-          }
+              },
+            },
+          },
         },
         reviews: {
           create: {

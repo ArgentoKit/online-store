@@ -78,14 +78,14 @@ export class UserService {
     return this.prisma.$transaction(async (tx) => {
       await tx.user.update({
         where: { id },
-        data: { 
-          favorites: { set: [] } 
+        data: {
+          favorites: { set: [] },
         },
       })
 
       await tx.orderItem.deleteMany({
-        where: { 
-          order: { userId: id } 
+        where: {
+          order: { userId: id },
         },
       })
 

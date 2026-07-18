@@ -29,34 +29,36 @@ export class ProductService {
       prismaSort.createdAt = 'desc'
     }
 
-    const prismaSearchTermFilter: Prisma.ProductWhereInput = searchTerm ? {
-      OR: [
-        {
-          categories: {
-            some: {
-              category: {
-                name: {
-                  contains: searchTerm,
-                  mode: 'insensitive'
-                }
-              }
-            }
-          }
-        },
-        {
-          name: {
-            contains: searchTerm,
-            mode: 'insensitive'
-          }
-        },
-        {
-          description: {
-            contains: searchTerm,
-            mode: 'insensitive'
-          }
+    const prismaSearchTermFilter: Prisma.ProductWhereInput = searchTerm
+      ? {
+          OR: [
+            {
+              categories: {
+                some: {
+                  category: {
+                    name: {
+                      contains: searchTerm,
+                      mode: 'insensitive',
+                    },
+                  },
+                },
+              },
+            },
+            {
+              name: {
+                contains: searchTerm,
+                mode: 'insensitive',
+              },
+            },
+            {
+              description: {
+                contains: searchTerm,
+                mode: 'insensitive',
+              },
+            },
+          ],
         }
-      ]
-    } : {}
+      : {}
 
     const { perPage, skip } = this.paginationService.getPagination(dto)
 
@@ -65,14 +67,14 @@ export class ProductService {
       orderBy: prismaSort,
       skip,
       take: perPage,
-      select: returnProductObject
+      select: returnProductObject,
     })
 
     return {
       products,
-      length: await this.prisma.product.count({ 
-        where: prismaSearchTermFilter 
-      })
+      length: await this.prisma.product.count({
+        where: prismaSearchTermFilter,
+      }),
     }
   }
 
@@ -104,14 +106,14 @@ export class ProductService {
 
   async byCategory(categorySlug: string) {
     const products = await this.prisma.product.findMany({
-      where: { 
+      where: {
         categories: {
           some: {
             category: {
-              slug: categorySlug
-            }
-          }
-        }
+              slug: categorySlug,
+            },
+          },
+        },
       },
       select: returnProductObjectFullest,
     })
@@ -130,25 +132,25 @@ export class ProductService {
       return []
     }
 
-    const categoryIds = currentProduct.categories.map(item => item.categoryId)
+    const categoryIds = currentProduct.categories.map((item) => item.categoryId)
 
     const products = await this.prisma.product.findMany({
       where: {
         categories: {
           some: {
             categoryId: {
-              in: categoryIds
-            }
-          }
+              in: categoryIds,
+            },
+          },
         },
         NOT: {
-          id: currentProduct.id
-        }
+          id: currentProduct.id,
+        },
       },
       orderBy: {
-        createdAt: 'desc'
+        createdAt: 'desc',
       },
-      select: returnProductObject
+      select: returnProductObject,
     })
 
     return products
@@ -160,8 +162,8 @@ export class ProductService {
         description: '',
         name: '',
         price: 0,
-        slug: ''
-      }
+        slug: '',
+      },
     })
 
     return product.id
@@ -171,7 +173,7 @@ export class ProductService {
     const { name, price, description, images, categoryIds } = dto
 
     await this.prisma.productCategory.deleteMany({
-      where: { productId: id }
+      where: { productId: id },
     })
 
     return this.prisma.product.update({
@@ -183,13 +185,13 @@ export class ProductService {
         images,
         slug: generateSlug(name),
         categories: {
-          create: categoryIds.map(categoryId => ({
+          create: categoryIds.map((categoryId) => ({
             category: {
-              connect: { id: categoryId }
-            }
-          }))
-        }
-      }
+              connect: { id: categoryId },
+            },
+          })),
+        },
+      },
     })
   }
 
