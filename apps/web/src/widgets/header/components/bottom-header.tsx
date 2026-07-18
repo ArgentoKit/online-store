@@ -1,15 +1,15 @@
 'use client'
 
-import { useState } from 'react'
-import Announcement from '@/shared/assets/icons/announcement.svg'
 import AnnouncementHover from '@/shared/assets/icons/announcement-hover.svg'
-import Charity from '@/shared/assets/icons/charity.svg'
+import Announcement from '@/shared/assets/icons/announcement.svg'
 import CharityHover from '@/shared/assets/icons/charity-hover.svg'
+import Charity from '@/shared/assets/icons/charity.svg'
 import PlusIcon from '@/shared/assets/icons/plus.svg'
-import Shop from '@/shared/assets/icons/shop.svg'
 import ShopHover from '@/shared/assets/icons/shop-hover.svg'
+import Shop from '@/shared/assets/icons/shop.svg'
 import { Button } from '@/shared/ui/button'
 import { InputSearch } from '@/shared/ui/search'
+import { useState } from 'react'
 
 const bottomMenuLinks = {
   announcements: {
