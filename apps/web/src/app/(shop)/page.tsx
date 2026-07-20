@@ -1,4 +1,4 @@
-import { CategoryList } from '@/entities/category/category-list'
+import { CategoryList } from '@/entities/category/ui/category-list'
 import { Title } from '@/shared/ui/title'
 import { Sidebar } from '@/widgets/sidebar'
 
