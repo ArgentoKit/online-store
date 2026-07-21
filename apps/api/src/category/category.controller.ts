@@ -1,5 +1,5 @@
-import { Auth } from '@/auth/decorators/auth.decorator'
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Auth } from '@/auth/decorators/auth.decorator'
 import { CategoryDto } from './category.dto'
 import { CategoryService } from './category.service'
 

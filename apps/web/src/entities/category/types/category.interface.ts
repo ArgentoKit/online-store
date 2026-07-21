@@ -2,5 +2,5 @@ export interface ICategory {
   id: string
   name: string
   slug: string
-  parentId: string | null
+  parentId?: string | null
 }
