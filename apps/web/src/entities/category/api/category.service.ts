@@ -13,7 +13,7 @@ export const CategoryService = {
 
   async getById(id: string) {
     const response = await instance<ICategory>({
-      url: `/categories/:${id}`,
+      url: `/categories/${id}`,
       method: 'GET',
     })
 
@@ -22,7 +22,7 @@ export const CategoryService = {
 
   async getBySlug(slug: string) {
     const response = await instance<ICategory>({
-      url: `/categories/by-slug/:${slug}`,
+      url: `/categories/by-slug/${slug}`,
       method: 'GET',
     })
 
