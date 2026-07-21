@@ -1,8 +1,8 @@
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma } from 'generated/prisma/client'
 import { PaginationService } from '@/pagination/pagination.service'
 import { PrismaService } from '@/prisma.service'
 import { generateSlug } from '@/utils/generate-slug'
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { Prisma } from 'generated/prisma/client'
 import { GetAllProductDto, ProductSortByEnum } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
 import { returnProductObject, returnProductObjectFullest } from './return-product.object'
@@ -156,13 +156,23 @@ export class ProductService {
     return products
   }
 
-  async create() {
+  async create(dto: ProductDto) {
+    const { name, price, description, images, categoryIds } = dto
+
     const product = await this.prisma.product.create({
       data: {
-        description: '',
-        name: '',
-        price: 0,
-        slug: '',
+        description,
+        name,
+        price,
+        slug: generateSlug(name),
+        images,
+        categories: {
+          create: categoryIds.map((categoryId) => ({
+            category: {
+              connect: { id: categoryId },
+            },
+          })),
+        },
       },
     })
 

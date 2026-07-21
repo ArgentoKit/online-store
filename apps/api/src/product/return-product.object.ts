@@ -1,6 +1,6 @@
+import { Prisma } from 'generated/prisma/client'
 import { returnCategoryObject } from '@/category/return-category.object'
 import { returnReviewObject } from '@/review/return-review.object'
-import { Prisma } from 'generated/prisma/client'
 
 export const returnProductObject: Prisma.ProductSelect = {
   images: true,

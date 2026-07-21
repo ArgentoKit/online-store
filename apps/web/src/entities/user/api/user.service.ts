@@ -1,12 +1,5 @@
 import { instance } from '@/shared/api/api.interceptor'
-import { IUser } from '../types/user.interface'
-
-type updateProfilePayload = {
-  password?: string
-  name?: string
-  avatarPath?: string | null
-  phone?: string | null
-}
+import { IUser, updateProfilePayload } from '../types/user.interface'
 
 export const UserService = {
   async getUserProfile(): Promise<IUser> {

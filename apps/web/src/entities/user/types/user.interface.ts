@@ -29,3 +29,10 @@ export interface IEmailPassword {
 export interface IAuthResponse extends ITokens {
   user: IUser
 }
+
+export interface updateProfilePayload {
+  password?: string
+  name?: string
+  avatarPath?: string | null
+  phone?: string | null
+}

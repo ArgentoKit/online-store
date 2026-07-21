@@ -15,3 +15,11 @@ export interface IProductFullest extends IProduct {
   reviews: IReview[]
   categories: ICategory[]
 }
+
+export interface productPayload {
+  name?: string
+  price?: number
+  description?: string
+  images?: string[]
+  categoryId?: string
+}
