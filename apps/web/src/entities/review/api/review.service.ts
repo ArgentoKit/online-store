@@ -2,8 +2,8 @@ import { instance } from '@/shared/api/api.interceptor'
 import { IReview } from '../types/review.interface'
 
 type CreateReviewPayload = {
-  text: string
-  rating: number
+  text?: string
+  rating?: number
 }
 
 export const ReviewService = {
