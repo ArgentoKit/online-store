@@ -1,6 +1,8 @@
 import '@/shared/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { Toaster } from '@/shared/ui/sonner'
+import { TooltipProvider } from '@/shared/ui/tooltip'
 import { cn } from '@/shared/utils/utils'
 
 export const metadata: Metadata = {
@@ -25,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={cn(norms.variable, 'font-sans')}>{children}</body>
+      <body className={cn(norms.variable, 'font-sans')}>
+        <TooltipProvider>{children}</TooltipProvider>
+        <Toaster />
+      </body>
     </html>
   )
 }
