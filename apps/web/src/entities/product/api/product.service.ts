@@ -1,10 +1,11 @@
 import { instance } from '@/shared/api/api.interceptor'
+import { API_URL } from '@/shared/config/api.config'
 import { IProduct, productPayload } from '../types/product.interface'
 
 export const ProductService = {
   async getAllProducts(): Promise<IProduct[]> {
     const { data } = await instance<IProduct[]>({
-      url: '/products',
+      url: API_URL.product(),
       method: 'GET',
     })
 
@@ -13,7 +14,7 @@ export const ProductService = {
 
   async getProductById(productId: string): Promise<IProduct> {
     const { data } = await instance<IProduct>({
-      url: `/products/${productId}`,
+      url: API_URL.product(`/${productId}`),
       method: 'GET',
     })
 
@@ -22,7 +23,7 @@ export const ProductService = {
 
   async getSimilarProduct(productId: string): Promise<IProduct[]> {
     const { data } = await instance<IProduct[]>({
-      url: `/products/similar/${productId}`,
+      url: API_URL.product(`/similar/${productId}`),
       method: 'GET',
     })
 
@@ -31,7 +32,7 @@ export const ProductService = {
 
   async getProductBySlug(slug: string) {
     const { data } = await instance<IProduct>({
-      url: `/products/by-slug/${slug}`,
+      url: API_URL.product(`/by-slug/${slug}`),
       method: 'GET',
     })
 
@@ -40,7 +41,7 @@ export const ProductService = {
 
   async getProductByCategory(categorySlug: string): Promise<IProduct[]> {
     const { data } = await instance<IProduct[]>({
-      url: `/products/by-category/${categorySlug}`,
+      url: API_URL.product(`/by-category/${categorySlug}`),
       method: 'GET',
     })
 
@@ -49,7 +50,7 @@ export const ProductService = {
 
   async createProduct(payload: productPayload): Promise<IProduct> {
     const { data } = await instance<IProduct>({
-      url: '/products',
+      url: API_URL.product(),
       method: 'POST',
       data: payload,
     })
@@ -59,7 +60,7 @@ export const ProductService = {
 
   async updateProduct(productId: string, payload: productPayload): Promise<IProduct> {
     const { data } = await instance<IProduct>({
-      url: `/products/${productId}`,
+      url: API_URL.product(`/${productId}`),
       method: 'PUT',
       data: payload,
     })
@@ -69,7 +70,7 @@ export const ProductService = {
 
   async deleteProduct(productId: string): Promise<IProduct> {
     const { data } = await instance<IProduct>({
-      url: `/products/${productId}`,
+      url: API_URL.product(`/${productId}`),
       method: 'DELETE',
     })
 

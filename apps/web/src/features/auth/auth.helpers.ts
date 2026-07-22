@@ -1,8 +1,13 @@
 import Cookies from 'js-cookie'
 import { IAuthResponse, ITokens } from '@/entities/user/types/user.interface'
 
+export enum EnumTokens {
+  ACCESS_TOKEN = 'accessToken',
+  REFRESH_TOKEN = 'refreshToken',
+}
+
 export const getAccessToken = () => {
-  const accessToken = Cookies.get('accessToken')
+  const accessToken = Cookies.get(EnumTokens.ACCESS_TOKEN)
   return accessToken || null
 }
 
@@ -11,13 +16,13 @@ export const getUserFromStorage = () => {
 }
 
 export const saveTokensStorage = (data: ITokens) => {
-  Cookies.set('accessToken', data.accessToken)
-  Cookies.set('refreshToken', data.refreshToken)
+  Cookies.set(EnumTokens.ACCESS_TOKEN, data.accessToken)
+  Cookies.set(EnumTokens.REFRESH_TOKEN, data.refreshToken)
 }
 
 export const removeFromStorage = () => {
-  Cookies.remove('accessToken')
-  Cookies.remove('refreshToken')
+  Cookies.remove(EnumTokens.ACCESS_TOKEN)
+  Cookies.remove(EnumTokens.REFRESH_TOKEN)
   localStorage.removeItem('user')
 }
 

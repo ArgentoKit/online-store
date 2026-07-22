@@ -1,10 +1,11 @@
 import { instance } from '@/shared/api/api.interceptor'
+import { API_URL } from '@/shared/config/api.config'
 import { ICategory } from '../types/category.interface'
 
 export const CategoryService = {
   async getAll() {
     const response = await instance<ICategory[]>({
-      url: `/categories`,
+      url: API_URL.category(),
       method: 'GET',
     })
 
@@ -13,7 +14,7 @@ export const CategoryService = {
 
   async getById(id: string) {
     const response = await instance<ICategory>({
-      url: `/categories/${id}`,
+      url: API_URL.category(`/${id}`),
       method: 'GET',
     })
 
@@ -22,7 +23,7 @@ export const CategoryService = {
 
   async getBySlug(slug: string) {
     const response = await instance<ICategory>({
-      url: `/categories/by-slug/${slug}`,
+      url: API_URL.category(`/by-slug/${slug}`),
       method: 'GET',
     })
 
@@ -31,7 +32,7 @@ export const CategoryService = {
 
   async create(name: string, parentId?: string) {
     const response = await instance<ICategory>({
-      url: `/categories`,
+      url: API_URL.category(),
       method: 'POST',
       data: {
         name,
@@ -44,7 +45,7 @@ export const CategoryService = {
 
   async update(id: string, name: string) {
     const response = await instance<ICategory>({
-      url: `/categories/${id}`,
+      url: API_URL.category(`/${id}`),
       method: 'PUT',
       data: {
         name,
@@ -56,7 +57,7 @@ export const CategoryService = {
 
   async delete(id: string) {
     const response = await instance<ICategory>({
-      url: `/categories/${id}`,
+      url: API_URL.category(`/${id}`),
       method: 'DELETE',
     })
 
