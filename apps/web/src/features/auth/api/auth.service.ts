@@ -1,13 +1,14 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-import { IAuthResponse, IEmailPassword } from '@/entities/user/types/user.interface'
-import { removeFromStorage, saveToStorage } from '@/features/auth/auth.helpers'
+import { IAuthResponse } from '@/entities/user/types/user.interface'
+import { removeFromStorage, saveToStorage } from '@/features/auth/lib/auth.helpers'
 import { getContentType } from '@/shared/api/api.helpers'
 import { API_URL } from '@/shared/config/api.config'
+import { IAuthForm } from '../model/auth.interface'
 
 export const AuthService = {
-  async main(type: 'login' | 'register', data: IEmailPassword) {
+  async main(type: 'login' | 'register', data: IAuthForm) {
     const response = await axios<IAuthResponse>({
       url: API_URL.auth(`/${type}`),
       method: 'POST',
