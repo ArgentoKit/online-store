@@ -1,11 +1,9 @@
 'use client'
 
 import { Gavel, HeartHandshake, type LucideIcon, Newspaper, Store, Wrench } from 'lucide-react'
-import { useState } from 'react'
 import Logo from '@/shared/assets/icons/logo-white.svg'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 import { Title } from '@/shared/ui/title'
-import { useAuthForm } from '../lib/useAuthForm'
 import { FormLogin } from './login-form'
 import { FormRegister } from './register-form'
 

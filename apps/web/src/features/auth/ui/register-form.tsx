@@ -3,14 +3,10 @@ import { Button } from '@/shared/ui/button'
 import { Card, CardContent } from '@/shared/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/shared/ui/field'
 import { Input } from '@/shared/ui/input'
-import { useAuthForm } from '../lib/useAuthForm'
-import { formRegisterSchema } from '../model/register.schema'
+import { useRegisterForm } from '../lib/useRegisterForm'
 
 export function FormRegister() {
-  const { form, onSubmit, isPending } = useAuthForm({
-    type: 'register',
-    schema: formRegisterSchema,
-  })
+  const { form, onSubmit, isPending } = useRegisterForm()
 
   return (
     <Card>

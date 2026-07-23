@@ -1,9 +1,9 @@
-import { PrismaService } from '@/prisma.service'
 import { faker } from '@faker-js/faker'
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { hash, verify } from 'argon2'
 import { User } from 'generated/prisma/client'
+import { PrismaService } from '@/prisma.service'
 import { AuthDto } from './dto/auth.dto'
 
 @Injectable()

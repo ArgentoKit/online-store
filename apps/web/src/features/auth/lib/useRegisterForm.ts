@@ -3,30 +3,28 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import z from 'zod'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { AuthService } from '../api/auth.service'
-import { IAuthForm } from '../model/auth.interface'
+import { formRegisterSchema, type RegisterSchemaType } from '../model/register.schema'
 
-type AuthType = 'login' | 'register'
-type AuthSchema = z.ZodObject<z.core.$ZodShape>
-
-interface Props<TSchema extends AuthSchema> {
-  type: AuthType
-  schema: TSchema
-}
-
-export const useAuthForm = <TSchema extends AuthSchema>({ type, schema }: Props<TSchema>) => {
+export const useRegisterForm = () => {
   const router = useRouter()
 
-  const form = useForm<z.input<TSchema>, any, z.output<TSchema>>({
-    resolver: zodResolver(schema),
+  const form = useForm<RegisterSchemaType>({
+    resolver: zodResolver(formRegisterSchema),
+    defaultValues: {
+      name: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
     mode: 'onChange',
   })
 
   const { mutate, isPending, error } = useMutation({
-    mutationKey: ['auth user'],
-    mutationFn: (data: z.output<TSchema>) => AuthService.main(type, data as IAuthForm),
+    mutationKey: ['register user'],
+    mutationFn: (data: RegisterSchemaType) => AuthService.main('register', data),
     onSuccess() {
       form.reset()
       toast.success('Successful authorization')
@@ -37,9 +35,7 @@ export const useAuthForm = <TSchema extends AuthSchema>({ type, schema }: Props<
     },
   })
 
-  const onSubmit = form.handleSubmit((values) => {
-    mutate(values)
-  })
+  const onSubmit = form.handleSubmit((values) => mutate(values))
 
   return { form, onSubmit, isPending, error }
 }

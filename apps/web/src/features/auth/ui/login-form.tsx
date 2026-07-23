@@ -3,14 +3,10 @@ import { Button } from '@/shared/ui/button'
 import { Card, CardContent } from '@/shared/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/shared/ui/field'
 import { Input } from '@/shared/ui/input'
-import { useAuthForm } from '../lib/useAuthForm'
-import { formLoginSchema } from '../model/login.schema'
+import { useLoginForm } from '../lib/useLoginForm'
 
 export function FormLogin() {
-  const { form, onSubmit, isPending } = useAuthForm({
-    type: 'login',
-    schema: formLoginSchema,
-  })
+  const { form, onSubmit, isPending } = useLoginForm()
 
   return (
     <Card>
