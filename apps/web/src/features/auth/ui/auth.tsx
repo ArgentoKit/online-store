@@ -4,6 +4,7 @@ import { Gavel, HeartHandshake, type LucideIcon, Newspaper, Store, Wrench } from
 import Logo from '@/shared/assets/icons/logo-white.svg'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 import { Title } from '@/shared/ui/title'
+import { BgIcons } from './bg-icons'
 import { FormLogin } from './login-form'
 import { FormRegister } from './register-form'
 
@@ -67,7 +68,7 @@ export function Auth() {
           </ul>
         </div>
       </div>
-      <div className='flex w-[56.5%] items-center -mt-[20vh] pl-[255px]'>
+      <div className='relative flex w-[56.5%] items-center justify-center -mt-[20vh]'>
         <Tabs defaultValue='login' className='w-77.5'>
           <TabsList className='w-full'>
             <TabsTrigger value='login' className='text-t18'>
@@ -84,6 +85,7 @@ export function Auth() {
             <FormRegister />
           </TabsContent>
         </Tabs>
+        <BgIcons />
       </div>
     </div>
   )

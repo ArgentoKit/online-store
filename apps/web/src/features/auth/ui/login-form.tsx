@@ -9,10 +9,10 @@ export function FormLogin() {
   const { form, onSubmit, isPending } = useLoginForm()
 
   return (
-    <Card>
-      <CardContent>
-        <form id='login-form' onSubmit={onSubmit}>
-          <FieldGroup>
+    <Card className='auth-form border-0 shadow-none'>
+      <CardContent className='p-0'>
+        <form id='login-form' onSubmit={onSubmit} noValidate>
+          <FieldGroup className='mb-7.5'>
             <Controller
               name='email'
               control={form.control}
@@ -36,20 +36,27 @@ export function FormLogin() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor='login-password'>Password</FieldLabel>
-                  <Input {...field} id='login-password' aria-invalid={fieldState.invalid} type='password' required />
+                  <Input
+                    {...field}
+                    id='login-password'
+                    placeholder='********'
+                    aria-invalid={fieldState.invalid}
+                    type='password'
+                    required
+                  />
                 </Field>
               )}
             ></Controller>
           </FieldGroup>
 
-          <FieldGroup>
+          <FieldGroup className='mb-7.5'>
             <Field>
-              <Button form='login-form' variant='green' type='submit' disabled={isPending}>
+              <Button form='login-form' variant='green' size='lg' type='submit' disabled={isPending}>
                 {isPending ? 'Отправка...' : 'Войти'}
               </Button>
             </Field>
           </FieldGroup>
-          <a href='#' className='ml-auto inline-block text-sm underline-offset-4 hover:underline'>
+          <a href='#' className='ml-auto inline-block text-t14 font-bold underline-offset-4 hover:underline'>
             Забыли пароль?
           </a>
         </form>

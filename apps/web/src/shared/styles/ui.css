@@ -74,6 +74,22 @@
   @apply gap-4 pr-[25px];
 }
 
+.input {
+  @apply rounded-md border border-medium-grey px-4 py-2.5 text-t14 shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-medium-grey md:text-sm dark:bg-input/30 focus:border-bright-green focus-visible:disabled:pointer-events-none disabled:bg-light-grey disabled:pointer-events-none disabled:cursor-not-allowed aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40;
+}
+
+.input-default {
+  @apply bg-transparent;
+}
+
+.input-size-default {
+  @apply h-10 w-full min-w-0;
+}
+
+.input-size-sm {
+  @apply h-7.5;
+}
+
 /* prevent layout shift when links become bold on hover by reserving width */
 a[data-title]::before {
   display: block;

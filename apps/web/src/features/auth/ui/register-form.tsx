@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
 import { Button } from '@/shared/ui/button'
 import { Card, CardContent } from '@/shared/ui/card'
-import { Field, FieldGroup, FieldLabel } from '@/shared/ui/field'
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/shared/ui/field'
 import { Input } from '@/shared/ui/input'
 import { useRegisterForm } from '../lib/useRegisterForm'
 
@@ -9,16 +9,18 @@ export function FormRegister() {
   const { form, onSubmit, isPending } = useRegisterForm()
 
   return (
-    <Card>
-      <CardContent>
-        <form id='register-form' onSubmit={onSubmit}>
-          <FieldGroup>
+    <Card className='auth-form border-0 shadow-none'>
+      <CardContent className='p-0'>
+        <form id='register-form' onSubmit={onSubmit} noValidate>
+          <FieldGroup className='mb-7.5'>
             <Controller
               name='name'
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='register-name'>Ваше имя</FieldLabel>
+                  <FieldLabel htmlFor='register-name'>
+                    Ваше имя<span className='text-tb18 font-bold text-bright-green'>*</span>
+                  </FieldLabel>
                   <Input
                     {...field}
                     id='register-name'
@@ -27,6 +29,7 @@ export function FormRegister() {
                     placeholder='Имя'
                     required
                   />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             ></Controller>
@@ -36,7 +39,9 @@ export function FormRegister() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='register-lastname'>Ваша фамилия</FieldLabel>
+                  <FieldLabel htmlFor='register-lastname'>
+                    Ваша фамилия<span className='text-tb18 font-bold text-bright-green'>*</span>
+                  </FieldLabel>
                   <Input
                     {...field}
                     id='register-lastname'
@@ -45,6 +50,7 @@ export function FormRegister() {
                     placeholder='Фамилия'
                     required
                   />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             ></Controller>
@@ -54,7 +60,9 @@ export function FormRegister() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='register-email'>Email</FieldLabel>
+                  <FieldLabel htmlFor='register-email'>
+                    Email<span className='text-tb18 font-bold text-bright-green'>*</span>
+                  </FieldLabel>
                   <Input
                     {...field}
                     id='register-email'
@@ -63,6 +71,7 @@ export function FormRegister() {
                     placeholder='m@example.com'
                     required
                   />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             ></Controller>
@@ -72,8 +81,18 @@ export function FormRegister() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='register-password'>Password</FieldLabel>
-                  <Input {...field} id='register-password' type='password' aria-invalid={fieldState.invalid} required />
+                  <FieldLabel htmlFor='register-password'>
+                    Password<span className='text-tb18 font-bold text-bright-green'>*</span>
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id='register-password'
+                    type='password'
+                    placeholder='********'
+                    aria-invalid={fieldState.invalid}
+                    required
+                  />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             ></Controller>
@@ -83,14 +102,18 @@ export function FormRegister() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='register-confirm-password'>Confirm Password</FieldLabel>
+                  <FieldLabel htmlFor='register-confirm-password'>
+                    Confirm Password<span className='text-tb18 font-bold text-bright-green'>*</span>
+                  </FieldLabel>
                   <Input
                     {...field}
                     id='register-confirm-password'
                     type='password'
+                    placeholder='********'
                     aria-invalid={fieldState.invalid}
                     required
                   />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             ></Controller>
@@ -98,7 +121,7 @@ export function FormRegister() {
 
           <FieldGroup>
             <Field>
-              <Button form='register-form' variant='green' type='submit' disabled={isPending}>
+              <Button form='register-form' variant='green' size='lg' type='submit' disabled={isPending}>
                 {isPending ? 'Отправка...' : 'Войти'}
               </Button>
             </Field>

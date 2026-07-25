@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
+import toast from 'react-hot-toast'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { AuthService } from '../api/auth.service'
 import { formLoginSchema, type LoginSchemaType } from '../model/login.schema'
@@ -13,7 +13,7 @@ export const useLoginForm = () => {
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(formLoginSchema),
     defaultValues: { email: '', password: '' },
-    mode: 'onChange',
+    mode: 'onTouched',
   })
 
   const { mutate, isPending, error } = useMutation({
@@ -22,7 +22,7 @@ export const useLoginForm = () => {
     onSuccess() {
       form.reset()
       toast.success('Successful authorization')
-      router.replace(PUBLIC_URL.home())
+      router.replace(PUBLIC_URL.user())
     },
     onError(error) {
       toast.error(error?.message || 'Authorization error')

@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt'
 import { hash, verify } from 'argon2'
 import { User } from 'generated/prisma/client'
 import { PrismaService } from '@/prisma.service'
-import { AuthDto } from './dto/auth.dto'
+import { AuthDto, RegisterDto } from './dto/auth.dto'
 
 @Injectable()
 export class AuthService {
@@ -45,7 +45,7 @@ export class AuthService {
     }
   }
 
-  async register(dto: AuthDto) {
+  async register(dto: RegisterDto) {
     const oldUser = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
@@ -58,7 +58,8 @@ export class AuthService {
       data: {
         email: dto.email,
         password: await hash(dto.password),
-        name: faker.person.firstName(),
+        name: dto.name,
+        lastName: dto.lastName,
         avatarPath: faker.image.avatar(),
         phone: faker.phone.number({ style: 'national' }),
       },
