@@ -1,7 +1,5 @@
-export function Sidebar({
-  children,
-}: Readonly<{
-  children?: React.ReactNode
-}>) {
-  return <nav className='flex flex-col max-w-[270px] pt-[25px] pl-[25px] pr-[30px] pb-[30px] shadow'>{children}</nav>
+import { cn } from '@/shared/utils/utils'
+
+export function Sidebar({ children, className }: React.ComponentProps<'nav'> & { children?: React.ReactNode }) {
+  return <nav className={cn('flex flex-col max-w-67.5', className)}>{children}</nav>
 }

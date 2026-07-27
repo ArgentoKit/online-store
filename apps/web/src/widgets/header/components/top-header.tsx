@@ -1,6 +1,6 @@
-import Person from '@/shared/assets/icons/person.svg'
 import { Location } from '@/shared/ui/location'
 import { Logo } from '@/shared/ui/logo'
+import { AuthSection } from '../auth/auth-section'
 
 const topMenuLinks = {
   'bulletin-board': {
@@ -42,10 +42,7 @@ export function TopHeader() {
         </nav>
         <div className='flex gap-7.5'>
           <Location />
-          <a href='/auth' className='flex items-center gap-2.5'>
-            <Person />
-            <span className='text-t14 font-medium text-dark-grey'>Вход/ регистрация</span>
-          </a>
+          <AuthSection />
         </div>
       </div>
     </div>

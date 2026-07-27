@@ -5,7 +5,12 @@ export const PUBLIC_URL = {
 
   home: () => PUBLIC_URL.root('/'),
   auth: () => PUBLIC_URL.root('/auth'),
+
   user: () => PUBLIC_URL.root('/user'),
+  order: () => PUBLIC_URL.root('/user/order'),
+  wish: () => PUBLIC_URL.root('/user/wish'),
+  viewed: () => PUBLIC_URL.root('/user/viewed'),
+  logout: () => PUBLIC_URL.root('/user/logout'),
 
   product: (id = '') => PUBLIC_URL.root(`/product/${id}`),
   category: (id = '') => PUBLIC_URL.root(`/category/${id}`),
