@@ -1,5 +1,6 @@
 import { Footer } from '@/widgets/footer'
 import { Header } from '@/widgets/header'
+import { DefaultBottom } from '@/widgets/header/ui/default-bottom'
 
 export default async function ShopLayout({
   children,
@@ -8,7 +9,7 @@ export default async function ShopLayout({
 }>) {
   return (
     <>
-      <Header />
+      <Header bottom={<DefaultBottom />} />
       <main className='mx-auto overflow-x-clip'>
         <div>{children}</div>
       </main>

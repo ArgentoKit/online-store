@@ -67,7 +67,8 @@ body {
     transform 0.3s ease;
 }
 
-.menu-hover:hover::after {
+.menu-hover:hover::after,
+.top-menu-active::after {
   opacity: 1;
   transform: scaleX(1);
 }

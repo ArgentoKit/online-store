@@ -1,8 +1,10 @@
+'use client'
+
 import { useState } from 'react'
 import Search from '@/shared/assets/icons/search.svg'
 import { cn } from '@/shared/utils/utils'
 
-export function InputSearch() {
+export function ProductSearch() {
   const [inputValue, setInputValue] = useState('')
 
   return (

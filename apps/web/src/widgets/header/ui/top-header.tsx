@@ -1,5 +1,9 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import { Location } from '@/shared/ui/location'
 import { Logo } from '@/shared/ui/logo'
+import { cn } from '@/shared/utils/utils'
 import { AuthSection } from '../auth/auth-section'
 
 const topMenuLinks = {
@@ -22,6 +26,8 @@ const topMenuLinks = {
 }
 
 export function TopHeader() {
+  const pathname = usePathname()
+
   return (
     <div className='border-b-[1.5px] border-medium-grey'>
       <div className='container flex items-center'>
@@ -31,7 +37,10 @@ export function TopHeader() {
             {Object.entries(topMenuLinks).map(([key, link]) => (
               <li
                 key={key}
-                className='relative p-5 cursor-pointer hover:bg-light-green transition-colors duration-150 menu-hover'
+                className={cn(
+                  'relative p-5 cursor-pointer hover:bg-light-green transition-colors duration-150 menu-hover',
+                  pathname === link.href ? 'bg-light-green top-menu-active' : ''
+                )}
               >
                 <a className='text-t14 font-medium' href={link.href}>
                   {link.title}
