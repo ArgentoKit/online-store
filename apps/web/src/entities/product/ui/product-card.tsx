@@ -8,8 +8,13 @@ import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 import { ProductColors } from '@/shared/ui/product-colors'
 import { Toggle } from '@/shared/ui/toggle'
+import { IProduct } from '../types/product.interface'
 
-export function ProductCard() {
+interface ProductCardProps {
+  product: IProduct
+}
+
+export function ProductCard({ product }: ProductCardProps) {
   const [selectedColor, setSelectedColor] = useState(1)
 
   return (
@@ -18,21 +23,21 @@ export function ProductCard() {
         <Heart className='text-bright-green group-data-[state=on]:fill-bright-green' />
       </Toggle>
       <div className='mx-auto'>
-        <img src='/images/product.png' alt='Product name' />
+        <img src={product.images[0]} alt='Product name' />
       </div>
       <div className='flex flex-col gap-7.5 px-5 pb-7.5'>
         <div className='flex flex-col'>
           <a href='' className='w-fit text-t12 mb-2.5 text-medium-grey hover:text-dark-grey'>
             Смартфон
           </a>
-          <a href='' className='text-t16 mb-[15px] hover:underline'>
-            Xiaomi Redmi зеленый
+          <a href='' className='h-12 text-t16 mb-[15px] hover:underline'>
+            {product.name}
           </a>
           <ProductColors selectedColor={selectedColor} onChange={setSelectedColor} />
         </div>
         <div>
           <div className='flex justify-between mb-[15px]'>
-            <span className='text-t18 font-bold text-bright-green'>20 000$</span>
+            <span className='text-t18 font-bold text-bright-green'>{product.price}$</span>
             <div className='flex gap-[15px]'>
               <a href='' className='flex items-center gap-[5px] group'>
                 <span className='text-t12 group-hover:underline'>4</span>

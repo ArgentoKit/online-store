@@ -2,9 +2,14 @@ import { instance } from '@/shared/api/api.interceptor'
 import { API_URL } from '@/shared/config/api.config'
 import { IProduct, productPayload } from '../types/product.interface'
 
+interface GetProductsResponse {
+  products: IProduct[]
+  length: number
+}
+
 export const ProductService = {
-  async getAllProducts(): Promise<IProduct[]> {
-    const { data } = await instance<IProduct[]>({
+  async getAllProducts(): Promise<GetProductsResponse> {
+    const { data } = await instance<GetProductsResponse>({
       url: API_URL.product(),
       method: 'GET',
     })
