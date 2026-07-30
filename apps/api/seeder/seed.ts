@@ -44,7 +44,7 @@ const createProducts = async (quantity: number) => {
             text: faker.lorem.sentences(2),
             user: {
               connect: {
-                id: 'cmrp013e30000vcoaiey0r4yo',
+                id: 'cms0d70dm00016goatsxpwvsj',
               },
             },
           },

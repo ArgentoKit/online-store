@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={cn(norms.variable, 'font-sans')}>
+      <body className={cn(norms.variable, 'font-sans', 'grid grid-rows-[auto_1fr_auto] ')}>
         <Providers>{children}</Providers>
       </body>
     </html>

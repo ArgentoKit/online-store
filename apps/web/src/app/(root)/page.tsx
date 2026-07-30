@@ -1,24 +1,27 @@
-import { CategoryList } from '@/entities/category/ui/category-list'
-import { Title } from '@/shared/ui/title'
-import { Sidebar } from '@/widgets/sidebar'
+import { ProductCard } from '@/entities/product/ui/product-card'
+import { SectionHeader } from '@/shared/ui/section-header'
 
-export default async function Home() {
+export default function Home() {
   return (
-    <div className='container flex gap-7.5'>
-      <Sidebar>
-        <CategoryList />
-      </Sidebar>
+    <div className='container'>
+      <div className='w-full flex flex-col gap-20 pt-12.5'>
+        <div>
+          <SectionHeader title='Хиты продаж' href='/popular' className='mb-7.5' />
+          <section className='flex justify-between'>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </section>
+        </div>
+        <section>
+          <SectionHeader title='Новинки' href='/new' />
+        </section>
 
-      <div className='pt-12.5'>
-        <div>
-          <Title text='Banner' size='lg' />
-        </div>
-        <div>
-          <Title text='Recommended' size='lg' />
-        </div>
-        <div>
-          <Title text='Popular' size='lg' />
-        </div>
+        <section>
+          <SectionHeader title='Скидки' href='/discount' />
+        </section>
       </div>
     </div>
   )
