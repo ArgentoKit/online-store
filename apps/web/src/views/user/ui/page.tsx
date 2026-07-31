@@ -13,6 +13,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb'
+import { Breadcrumbs } from '@/shared/ui/breadcrumbs'
+import { BreadcrumbItemType } from '@/shared/ui/breadcrumbs/breadcrumbs'
 import { Card } from '@/shared/ui/card'
 import { Title } from '@/shared/ui/title'
 import { cn } from '@/shared/utils/utils'
@@ -48,21 +50,16 @@ export function UserPage() {
     },
   ]
 
+  const breadcrumbsItems: BreadcrumbItemType[] = [
+    { label: 'Главная страница', href: PUBLIC_URL.home() },
+    { label: 'Личный кабинет' },
+  ]
+
   const pathname = usePathname()
 
   return (
     <div className='container'>
-      <Breadcrumb className='py-5'>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href={PUBLIC_URL.home()}>Главная страница</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Личный кабинет</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <Breadcrumbs items={breadcrumbsItems} className='py-5' />
 
       <div className='flex gap-7.5'>
         <Sidebar className='gap-7.5'>

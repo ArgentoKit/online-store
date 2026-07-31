@@ -8,10 +8,11 @@ interface GetProductsResponse {
 }
 
 export const ProductService = {
-  async getAllProducts(): Promise<GetProductsResponse> {
+  async getAllProducts(searchTerm?: string | null): Promise<GetProductsResponse> {
     const { data } = await instance<GetProductsResponse>({
       url: API_URL.product(),
       method: 'GET',
+      params: searchTerm ? { searchTerm } : {},
     })
 
     return data

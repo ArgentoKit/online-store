@@ -5,7 +5,7 @@ import { useProduct } from '@/shared/hooks/useProduct'
 import { SectionHeader } from '@/shared/ui/section-header'
 
 export default function Home() {
-  const { data } = useProduct()
+  const { data } = useProduct('')
   const products = data?.products
 
   return (
