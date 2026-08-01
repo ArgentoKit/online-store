@@ -18,6 +18,7 @@ const buttonVariants = cva('btn', {
     },
     size: {
       default: 'btn-size-default',
+      link: 'btn-size-link',
       xs: 'btn-size-xs',
       sm: 'btn-size-sm',
       lg: 'btn-size-lg',

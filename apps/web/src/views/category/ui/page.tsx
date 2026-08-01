@@ -20,6 +20,7 @@ export function CategoryPage() {
         <Sidebar>
           <Filters />
         </Sidebar>
+        <div>Products</div>
       </div>
     </div>
   )

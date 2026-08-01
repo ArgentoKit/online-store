@@ -11,7 +11,7 @@
 }
 
 .btn-outline {
-  @apply border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50;
+  @apply border border-accent text-accent bg-background hover:bg-accent hover:text-white dark:border-input dark:bg-input/30 dark:hover:bg-input/50;
 }
 
 .btn-secondary {
@@ -44,6 +44,10 @@
 
 .btn-size-default {
   @apply h-9 px-4 py-2;
+}
+
+.btn-size-link {
+  @apply p-0;
 }
 
 .btn-size-xs {
@@ -87,7 +91,7 @@
 }
 
 .input-size-sm {
-  @apply h-7.5;
+  @apply w-20 h-7.5 p-2.5;
 }
 
 /* prevent layout shift when links become bold on hover by reserving width */
