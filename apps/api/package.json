@@ -11,6 +11,7 @@
     "format": "biome format --write",
     "check": "biome check",
     "db:migrate": "pnpm prisma migrate dev",
+    "db:reset": "pnpm prisma migrate reset",
     "db:generate": "pnpm prisma generate",
     "db:push": "pnpm prisma db push",
     "db:seed": "ts-node -r tsconfig-paths/register ./seeder/seed.ts"

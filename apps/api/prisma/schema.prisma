@@ -97,11 +97,11 @@ model Category {
   parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
   children Category[] @relation("CategoryTree")
 
-  products ProductCategory[]
+  products   ProductCategory[]
+  attributes CategoryAttribute[]
 
-  createdAt  DateTime    @default(now()) @map("created_at")
-  updatedAt  DateTime    @updatedAt @map("updated_at")
-  attributes Attribute[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model ProductCategory {
@@ -121,8 +121,7 @@ model Attribute {
   slug String
   type AttributeTypeEnum @default(MULTISELECT)
 
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  categories CategoryAttribute[]
 
   values   AttributeValue[]
   products ProductAttribute[]
@@ -155,6 +154,19 @@ model ProductAttribute {
   value   AttributeValue? @relation(fields: [valueId], references: [id])
 
   @@unique([productId, attributeId])
+}
+
+model CategoryAttribute {
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  attributeId String
+  attribute   Attribute @relation(fields: [attributeId], references: [id])
+
+  isFilter  Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  @@id([categoryId, attributeId])
 }
 
 model Review {
