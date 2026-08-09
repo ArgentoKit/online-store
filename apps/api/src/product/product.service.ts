@@ -1,5 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from 'generated/prisma/client'
+import { PaginationDto } from '@/pagination/pagination.dto'
 import { PaginationService } from '@/pagination/pagination.service'
 import { PrismaService } from '@/prisma.service'
 import { generateSlug } from '@/utils/generate-slug'
@@ -11,7 +13,8 @@ import { returnProductObject, returnProductObjectFullest } from './return-produc
 export class ProductService {
   constructor(
     private prisma: PrismaService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
+    @Inject(CACHE_MANAGER) private cache: Cache
   ) {}
 
   async getAll(dto: GetAllProductDto) {
@@ -104,25 +107,66 @@ export class ProductService {
     return product
   }
 
-  async byCategory(categorySlug: string) {
-    const products = await this.prisma.product.findMany({
-      where: {
-        categories: {
-          some: {
-            category: {
-              slug: categorySlug,
-            },
-          },
-        },
-      },
-      select: returnProductObjectFullest,
+  async byCategorySlug(categorySlug: string, dto: PaginationDto) {
+    const category = await this.prisma.category.findUnique({
+      where: { slug: categorySlug },
+      select: { id: true },
     })
 
-    if (!products) {
-      throw new NotFoundException('Product not found')
+    if (!category) {
+      throw new NotFoundException('Category not found')
     }
 
-    return products
+    const categoryIds = await this.getCategoryIdsWithChildren(category.id)
+    const { page, perPage, skip } = this.paginationService.getPagination(dto)
+
+    const where: Prisma.ProductWhereInput = {
+      categories: {
+        some: { categoryId: { in: categoryIds } },
+      },
+    }
+
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.product.findMany({
+        where,
+        skip,
+        take: perPage,
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          price: true,
+          images: true,
+        },
+      }),
+      this.prisma.product.count({ where }),
+    ])
+
+    return {
+      items,
+      meta: this.paginationService.getMeta(total, page, perPage),
+    }
+  }
+
+  async getCategoryIdsWithChildren(categoryId: string): Promise<string[]> {
+    const cacheKey = `category-tree:${categoryId}`
+    const cached = await this.cache.get<string[]>(cacheKey)
+    if (cached) return cached
+
+    const result = await this.prisma.$queryRaw<{ id: string }[]>`
+      WITH RECURSIVE category_tree AS (
+      SELECT id FROM "Category" WHERE id = ${categoryId}
+      UNION ALL
+      SELECT c.id FROM "Category" c
+      INNER JOIN category_tree ct ON c.parent_id = ct.id
+    )
+    SELECT id FROM category_tree
+    `
+    const ids = result.map((r) => r.id)
+
+    await this.cache.set(cacheKey, ids, 60 * 60 * 1000)
+    return ids
   }
 
   async getSimilar(id: string) {

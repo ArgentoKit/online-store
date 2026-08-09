@@ -26,7 +26,7 @@ export function CategoryPage({ category }: CategoryProps) {
         <Sidebar>
           <Filters />
         </Sidebar>
-        <div>
+        <div className='grid grid-cols-4 gap-x-4.5 gap-y-5'>
           {category?.products?.map((product) => (
             <ProductCard key={product.product.id} product={product.product} />
           ))}

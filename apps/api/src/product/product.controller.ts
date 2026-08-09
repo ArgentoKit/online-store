@@ -12,6 +12,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common'
 import { Auth } from '@/auth/decorators/auth.decorator'
+import { PaginationDto } from '@/pagination/pagination.dto'
 import { GetAllProductDto } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
 import { ProductService } from './product.service'
@@ -43,8 +44,8 @@ export class ProductController {
   }
 
   @Get('by-category/:categorySlug')
-  async getProductsByCategory(@Param('categorySlug') categorySlug: string) {
-    return this.productService.byCategory(categorySlug)
+  async getProductsByCategory(@Param('categorySlug') categorySlug: string, @Body() dto: PaginationDto) {
+    return this.productService.byCategorySlug(categorySlug, dto)
   }
 
   @UsePipes(new ValidationPipe())
