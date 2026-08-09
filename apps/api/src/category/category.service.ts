@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from '@/prisma.service'
 import { generateSlug } from '@/utils/generate-slug'
 import { CategoryDto } from './category.dto'
-import { returnCategoryObject } from './return-category.object'
+import { returnCategoryObject, returnCategoryObjectFullest } from './return-category.object'
 
 @Injectable()
 export class CategoryService {
@@ -26,7 +26,7 @@ export class CategoryService {
       where: {
         slug,
       },
-      select: returnCategoryObject,
+      select: returnCategoryObjectFullest,
     })
 
     if (!category) throw new NotFoundException('Category not found')
