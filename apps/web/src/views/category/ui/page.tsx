@@ -1,4 +1,5 @@
 import { ICategory } from '@/entities/category/types/category.interface'
+import { IProduct } from '@/entities/product/types/product.interface'
 import { ProductCard } from '@/entities/product/ui/product-card'
 import { PUBLIC_URL } from '@/shared/config/url.config'
 import { Breadcrumbs } from '@/shared/ui/breadcrumbs'
@@ -9,6 +10,16 @@ import { Sidebar } from '@/widgets/sidebar'
 
 interface CategoryProps {
   category: ICategory
+  products: {
+    items: IProduct[]
+    meta: {
+      page: number
+      perPage: number
+      totalPages: number
+      hasNextPage: boolean
+      hasPrevPage: boolean
+    }
+  }
 }
 
 const breadcrumbItems: BreadcrumbItemType[] = [
@@ -17,7 +28,9 @@ const breadcrumbItems: BreadcrumbItemType[] = [
   { label: 'Телефоны и аксессуары ' },
 ]
 
-export function CategoryPage({ category }: CategoryProps) {
+export function CategoryPage({ category, products }: CategoryProps) {
+  const productItems = products.items
+
   return (
     <div className='container'>
       <Breadcrumbs items={breadcrumbItems} className='py-5' />
@@ -27,8 +40,8 @@ export function CategoryPage({ category }: CategoryProps) {
           <Filters />
         </Sidebar>
         <div className='grid grid-cols-4 gap-x-4.5 gap-y-5'>
-          {category?.products?.map((product) => (
-            <ProductCard key={product.product.id} product={product.product} />
+          {productItems?.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

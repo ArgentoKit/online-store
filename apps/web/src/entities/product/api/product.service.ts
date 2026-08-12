@@ -45,10 +45,20 @@ export const ProductService = {
     return data
   },
 
-  async getProductByCategory(categorySlug: string): Promise<IProduct[]> {
-    const { data } = await instance<IProduct[]>({
+  async getProductByCategory(
+    categorySlug: string,
+    pagination?: { page?: number; perPage?: number }
+  ): Promise<{
+    items: IProduct[]
+    meta: { page: number; perPage: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean }
+  }> {
+    const { data } = await instance<{
+      items: IProduct[]
+      meta: { page: number; perPage: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean }
+    }>({
       url: API_URL.product(`/by-category/${categorySlug}`),
       method: 'GET',
+      params: pagination,
     })
 
     return data

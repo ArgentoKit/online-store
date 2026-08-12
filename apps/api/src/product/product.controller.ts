@@ -44,7 +44,7 @@ export class ProductController {
   }
 
   @Get('by-category/:categorySlug')
-  async getProductsByCategory(@Param('categorySlug') categorySlug: string, @Body() dto: PaginationDto) {
+  async getProductsByCategory(@Param('categorySlug') categorySlug: string, @Query() dto: PaginationDto) {
     return this.productService.byCategorySlug(categorySlug, dto)
   }
 

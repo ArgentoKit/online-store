@@ -10,13 +10,6 @@ export const returnCategoryObject: Prisma.CategorySelect = {
 
 export const returnCategoryObjectFullest: Prisma.CategorySelect = {
   ...returnCategoryObject,
-  products: {
-    select: {
-      product: {
-        select: returnProductObject,
-      },
-    },
-  },
   attributes: {
     select: {
       categoryId: true,
