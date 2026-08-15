@@ -1,5 +1,3 @@
-import { CategoryService } from '@/entities/category/api/category.service'
-import { ProductService } from '@/entities/product/api/product.service'
 import { CategoryCatalogService } from '@/features/category-catalog/category-catalog.service'
 import { CategoryPage } from '@/views/category'
 

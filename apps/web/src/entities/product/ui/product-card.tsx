@@ -18,7 +18,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const [selectedColor, setSelectedColor] = useState(1)
 
   return (
-    <Card className='relative max-w-[214px] pt-2.5'>
+    <Card className='relative max-w-[214px] h-fit pt-2.5'>
       <Toggle aria-label='Toggle-heart' className='absolute top-[15px] right-5'>
         <Heart className='text-bright-green group-data-[state=on]:fill-bright-green' />
       </Toggle>

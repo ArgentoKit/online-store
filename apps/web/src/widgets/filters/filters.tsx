@@ -1,3 +1,4 @@
+import { ICategoryAttribute } from '@/entities/category/types/category.interface'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/ui/accordion'
 import { Button } from '@/shared/ui/button'
 import { FilterCheckbox } from '@/shared/ui/filter-checkbox'
@@ -5,47 +6,11 @@ import { Input } from '@/shared/ui/input'
 import { Slider } from '@/shared/ui/slider'
 import { CheckboxFiltersGroup } from './filters-checkbox-group'
 
-export const filters = [
-  {
-    id: 'brand',
-    title: 'Бренд',
-    options: [
-      { text: 'Apple', value: 'apple' },
-      { text: 'Samsung', value: 'samsung' },
-      { text: 'Xiaomi', value: 'xiaomi' },
-      { text: 'Honor', value: 'honor' },
-      { text: 'Google', value: 'google' },
-      { text: 'OnePlus', value: 'oneplus' },
-      { text: 'Nothing', value: 'nothing' },
-      { text: 'Motorola', value: 'motorola' },
-    ],
-  },
-  {
-    id: 'screen-size',
-    title: 'Диагональ экрана',
-    options: [
-      { text: '5.8"', value: '5.8' },
-      { text: '6.1"', value: '6.1' },
-      { text: '6.3"', value: '6.3' },
-      { text: '6.5"', value: '6.5' },
-      { text: '6.7"', value: '6.7' },
-      { text: '6.8"', value: '6.8' },
-    ],
-  },
-  {
-    id: 'storage',
-    title: 'Объём памяти',
-    options: [
-      { text: '64 ГБ', value: '64' },
-      { text: '128 ГБ', value: '128' },
-      { text: '256 ГБ', value: '256' },
-      { text: '512 ГБ', value: '512' },
-      { text: '1 ТБ', value: '1024' },
-    ],
-  },
-]
+interface FiltersProps {
+  attributes: ICategoryAttribute[]
+}
 
-export function Filters() {
+export function Filters({ attributes }: FiltersProps) {
   return (
     <div className='flex flex-col gap-[30px] shadow p-[30px] pt-[25px]'>
       <div>
@@ -59,9 +24,17 @@ export function Filters() {
 
       <div>
         <Accordion type='multiple' defaultValue={['brand']} className='space-y-4'>
-          {filters.map((group) => (
-            <CheckboxFiltersGroup key={group.id} title={group.title} items={group.options} limit={6} />
-          ))}
+          {attributes.map((group) => {
+            console.log(group)
+            return (
+              <CheckboxFiltersGroup
+                key={group.attributeId}
+                title={group.attribute.name}
+                items={group.attribute.values}
+                limit={6}
+              />
+            )
+          })}
         </Accordion>
       </div>
       <div className='flex flex-col gap-5'>

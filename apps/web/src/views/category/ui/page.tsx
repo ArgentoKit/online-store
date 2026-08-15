@@ -29,7 +29,8 @@ const breadcrumbItems: BreadcrumbItemType[] = [
 ]
 
 export function CategoryPage({ category, products }: CategoryProps) {
-  const productItems = products.items
+  const productItems = products?.items
+  const attributes = category.attributes
 
   return (
     <div className='container'>
@@ -37,9 +38,9 @@ export function CategoryPage({ category, products }: CategoryProps) {
       <Title text={category.name} size='lg' className='mb-5' />
       <div className='flex gap-7.5'>
         <Sidebar>
-          <Filters />
+          <Filters attributes={attributes} />
         </Sidebar>
-        <div className='grid grid-cols-4 gap-x-4.5 gap-y-5'>
+        <div className='grid grid-cols-4 gap-x-4.5 gap-y-5 h-fit'>
           {productItems?.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

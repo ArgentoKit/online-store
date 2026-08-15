@@ -7,6 +7,7 @@ import { PrismaService } from '@/prisma.service'
 import { generateSlug } from '@/utils/generate-slug'
 import { GetAllProductDto, ProductSortByEnum } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
+import { ProductFilterDto } from './dto/product-filter.dto'
 import { returnProductObject, returnProductObjectFullest } from './return-product.object'
 
 @Injectable()
@@ -16,6 +17,19 @@ export class ProductService {
     private paginationService: PaginationService,
     @Inject(CACHE_MANAGER) private cache: Cache
   ) {}
+
+  private resolveSort(sort?: string): Prisma.ProductOrderByWithRelationInput {
+    switch (sort) {
+      case 'price_asc':
+        return { price: 'asc' }
+      case 'price_desc':
+        return { price: 'desc' }
+      case 'newest':
+        return { createdAt: 'desc' }
+      default:
+        return { createdAt: 'desc' }
+    }
+  }
 
   async getAll(dto: GetAllProductDto) {
     const { sort, searchTerm } = dto
@@ -107,7 +121,7 @@ export class ProductService {
     return product
   }
 
-  async byCategorySlug(categorySlug: string, dto: PaginationDto) {
+  async byCategorySlug(categorySlug: string, dto: ProductFilterDto, attributeFilters: Record<string, string[]>) {
     const category = await this.prisma.category.findUnique({
       where: { slug: categorySlug },
       select: { id: true },
@@ -126,12 +140,41 @@ export class ProductService {
       },
     }
 
+    if (dto.priceMin || dto.priceMax) {
+      where.price = {
+        ...(dto.priceMin && { gte: +dto.priceMin }),
+        ...(dto.priceMax && { lte: +dto.priceMax }),
+      }
+    }
+
+    const attributeSlugs = Object.keys(attributeFilters)
+    if (attributeSlugs.length) {
+      const attributes = await this.prisma.attribute.findMany({
+        where: { slug: { in: attributeSlugs } },
+        select: { id: true, slug: true },
+      })
+      const slugToId = new Map(attributes.map((a) => [a.slug, a.id]))
+
+      where.AND = attributeSlugs
+        .filter((slug) => slugToId.has(slug))
+        .map((slug) => ({
+          attributes: {
+            some: {
+              attributeId: slugToId.get(slug),
+              valueId: { in: attributeFilters[slug] },
+            },
+          },
+        }))
+    }
+
+    const orderBy = this.resolveSort(dto.sort)
+
     const [items, total] = await this.prisma.$transaction([
       this.prisma.product.findMany({
         where,
         skip,
         take: perPage,
-        orderBy: { createdAt: 'desc' },
+        orderBy,
         select: {
           id: true,
           name: true,

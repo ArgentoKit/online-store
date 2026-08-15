@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common'
@@ -15,6 +16,7 @@ import { Auth } from '@/auth/decorators/auth.decorator'
 import { PaginationDto } from '@/pagination/pagination.dto'
 import { GetAllProductDto } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
+import { ProductFilterDto } from './dto/product-filter.dto'
 import { ProductService } from './product.service'
 
 @Controller('products')
@@ -44,8 +46,21 @@ export class ProductController {
   }
 
   @Get('by-category/:categorySlug')
-  async getProductsByCategory(@Param('categorySlug') categorySlug: string, @Query() dto: PaginationDto) {
-    return this.productService.byCategorySlug(categorySlug, dto)
+  async getProductsByCategory(
+    @Param('categorySlug') categorySlug: string,
+    @Query() dto: ProductFilterDto,
+    @Req() req: Request
+  ) {
+    const knownKeys = ['page', 'perPage', 'sort', 'priceMin', 'priceMax']
+    const attributeFilters: Record<string, string[]> = {}
+
+    for (const [key, value] of Object.entries(req.query)) {
+      if (!knownKeys.includes(key) && typeof value === 'string') {
+        attributeFilters[key] = value.split(',')
+      }
+    }
+
+    return this.productService.byCategorySlug(categorySlug, dto, attributeFilters)
   }
 
   @UsePipes(new ValidationPipe())

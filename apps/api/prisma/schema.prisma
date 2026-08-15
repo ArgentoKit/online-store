@@ -19,7 +19,6 @@ enum AttributeTypeEnum {
   SELECT
   MULTISELECT
   RANGE
-  BOOLEAN
 }
 
 enum UnitEnum {

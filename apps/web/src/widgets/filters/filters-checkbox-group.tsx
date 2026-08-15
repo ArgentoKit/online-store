@@ -1,14 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import { IAttributeValue } from '@/entities/category/types/category.interface'
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/shared/ui/accordion'
 import { Button } from '@/shared/ui/button'
 import { FilterCheckbox, FilterCheckboxProps } from '@/shared/ui/filter-checkbox'
 
 interface Props {
   title: string
-  items: FilterCheckboxProps[]
-  defaultItems?: FilterCheckboxProps[]
+  items: IAttributeValue[]
+  defaultItems?: IAttributeValue[]
   limit?: number
   onChange?: (values: string[]) => void
   defaultValue?: string[]
@@ -35,12 +36,12 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
           <div className='flex flex-col gap-2.5 max-h-96 pr-2 pb-2.5 overflow-auto scrollbar'>
             {shownItems.map((filter) => (
               <FilterCheckbox
-                key={String(filter.text)}
+                key={String(filter.id)}
                 onCheckedChange={(ids) => console.log(ids)}
                 checked={false}
                 value={filter.value}
-                text={filter.text}
-                endAdornment={filter.endAdornment}
+                text={filter.value}
+                // endAdornment={filter.endAdornment}
               />
             ))}
           </div>
