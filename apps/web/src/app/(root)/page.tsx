@@ -1,11 +1,11 @@
 'use client'
 
 import { ProductCard } from '@/entities/product/ui/product-card'
-import { useProducts } from '@/shared/hooks/useProducts'
+import { useProduct } from '@/shared/hooks/useProduct'
 import { SectionHeader } from '@/shared/ui/section-header'
 
 export default function Home() {
-  const { data } = useProducts('')
+  const { data } = useProduct('')
   const products = data?.products
 
   return (

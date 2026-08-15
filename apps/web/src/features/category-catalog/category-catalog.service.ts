@@ -4,11 +4,10 @@ import { ProductFilterDto } from '@/entities/product/types/product.interface'
 
 export const CategoryCatalogService = {
   async getCategoryData(slug: string, filterDto: ProductFilterDto, attributeFilters: Record<string, string[]>) {
-    const category = await CategoryService.getBySlug(slug)
-    const products = await ProductService.getProductByCategory(slug, filterDto, attributeFilters)
-    return {
-      category,
-      products,
-    }
+    const [category, products] = await Promise.all([
+      CategoryService.getBySlug(slug),
+      ProductService.getProductByCategory(slug, filterDto, attributeFilters),
+    ])
+    return { category, products }
   },
 }

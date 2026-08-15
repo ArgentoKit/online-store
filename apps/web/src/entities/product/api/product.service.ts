@@ -1,6 +1,6 @@
 import { instance } from '@/shared/api/api.interceptor'
 import { API_URL } from '@/shared/config/api.config'
-import { IProduct, ProductFilterDto, productPayload } from '../types/product.interface'
+import { IPaginationMeta, IProduct, ProductFilterDto, productPayload } from '../types/product.interface'
 
 interface GetProductsResponse {
   products: IProduct[]
@@ -51,7 +51,7 @@ export const ProductService = {
     attributeFilters: Record<string, string[]> = {}
   ): Promise<{
     items: IProduct[]
-    meta: { page: string; perPage: string; totalPages: string; hasNextPage: boolean; hasPrevPage: boolean }
+    meta: IPaginationMeta
   }> {
     const params = {
       ...pagination,
@@ -60,7 +60,7 @@ export const ProductService = {
 
     const { data } = await instance<{
       items: IProduct[]
-      meta: { page: string; perPage: string; totalPages: string; hasNextPage: boolean; hasPrevPage: boolean }
+      meta: IPaginationMeta
     }>({
       url: API_URL.product(`/by-category/${categorySlug}`),
       method: 'GET',

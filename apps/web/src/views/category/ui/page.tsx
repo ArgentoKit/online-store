@@ -1,4 +1,4 @@
-import { ICategory } from '@/entities/category/types/category.interface'
+import { ICategory, ICategoryWithFilters } from '@/entities/category/types/category.interface'
 import { IProduct } from '@/entities/product/types/product.interface'
 import { ProductCard } from '@/entities/product/ui/product-card'
 import { PUBLIC_URL } from '@/shared/config/url.config'
@@ -9,7 +9,7 @@ import { Filters } from '@/widgets/filters'
 import { Sidebar } from '@/widgets/sidebar'
 
 interface CategoryProps {
-  category: ICategory
+  category: ICategoryWithFilters
   products: {
     items: IProduct[]
     meta: {
@@ -30,7 +30,7 @@ const breadcrumbItems: BreadcrumbItemType[] = [
 
 export function CategoryPage({ category, products }: CategoryProps) {
   const productItems = products?.items
-  const attributes = category.attributes
+  const attributes = category.filters.attributes
 
   return (
     <div className='container'>

@@ -1,32 +1,24 @@
-import { IProduct } from '@/entities/product/types/product.interface'
-
-const enum UnitEnum {
-  GB,
-  TB,
-  MB,
-
-  INCH,
-
-  KG,
-  G,
-
-  HZ,
-  MHZ,
-  GHZ,
-
-  MAH,
-
-  USD,
-  EUR,
-  UAH,
-
-  PERCENT,
+export const enum UnitEnum {
+  GB = 'GB',
+  TB = 'TB',
+  MB = 'MB',
+  INCH = 'INCH',
+  KG = 'KG',
+  G = 'G',
+  HZ = 'HZ',
+  MHZ = 'MHZ',
+  GHZ = 'GHZ',
+  MAH = 'MAH',
+  USD = 'USD',
+  EUR = 'EUR',
+  UAH = 'UAH',
+  PERCENT = 'PERCENT',
 }
 
-const enum AttributeTypeEnum {
-  SELECT,
-  MULTISELECT,
-  RANGE,
+export const enum AttributeTypeEnum {
+  SELECT = 'SELECT',
+  MULTISELECT = 'MULTISELECT',
+  RANGE = 'RANGE',
 }
 
 export interface IAttributeValue {
@@ -51,17 +43,27 @@ export interface ICategoryAttribute {
   attribute: IAttribute
 }
 
-export interface IProductCategory {
-  productId: string
-  categoryId: string
-  product: IProduct
-}
-
 export interface ICategory {
   id: string
   name: string
   slug: string
   parentId?: string | null
   attributes: ICategoryAttribute[]
-  products: IProductCategory[]
+}
+
+export interface ICategoryBase {
+  id: string
+  name: string
+  slug: string
+  parentId: string | null
+}
+
+export interface ICategoryWithFilters {
+  id: string
+  name: string
+  slug: string
+  filters: {
+    attributes: IAttribute[]
+    price: { min: number; max: number }
+  }
 }
