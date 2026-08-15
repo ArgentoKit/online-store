@@ -13,7 +13,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common'
 import { Auth } from '@/auth/decorators/auth.decorator'
-import { PaginationDto } from '@/pagination/pagination.dto'
 import { GetAllProductDto } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
 import { ProductFilterDto } from './dto/product-filter.dto'
@@ -49,12 +48,12 @@ export class ProductController {
   async getProductsByCategory(
     @Param('categorySlug') categorySlug: string,
     @Query() dto: ProductFilterDto,
-    @Req() req: Request
+    @Query() rawQuery: Record<string, string>
   ) {
     const knownKeys = ['page', 'perPage', 'sort', 'priceMin', 'priceMax']
     const attributeFilters: Record<string, string[]> = {}
 
-    for (const [key, value] of Object.entries(req.query)) {
+    for (const [key, value] of Object.entries(rawQuery)) {
       if (!knownKeys.includes(key) && typeof value === 'string') {
         attributeFilters[key] = value.split(',')
       }

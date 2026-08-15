@@ -1,5 +1,4 @@
 import { Prisma } from 'generated/prisma/client'
-import { returnProductObject } from '@/product/return-product.object'
 
 export const returnCategoryObject: Prisma.CategorySelect = {
   id: true,
@@ -8,17 +7,14 @@ export const returnCategoryObject: Prisma.CategorySelect = {
   parentId: true,
 }
 
-export const returnCategoryObjectFullest: Prisma.CategorySelect = {
+export const returnCategoryObjectFullest = {
   ...returnCategoryObject,
   attributes: {
+    where: { isFilter: true },
+    orderBy: { sortOrder: 'asc' },
     select: {
-      categoryId: true,
-      attributeId: true,
-      isFilter: true,
-      sortOrder: true,
       attribute: {
         select: {
-          id: true,
           name: true,
           slug: true,
           type: true,
@@ -27,7 +23,6 @@ export const returnCategoryObjectFullest: Prisma.CategorySelect = {
           values: {
             select: {
               id: true,
-              attributeId: true,
               value: true,
             },
           },
@@ -35,4 +30,4 @@ export const returnCategoryObjectFullest: Prisma.CategorySelect = {
       },
     },
   },
-}
+} as const

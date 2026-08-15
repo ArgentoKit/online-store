@@ -88,18 +88,6 @@ const ATTRIBUTE_TEMPLATES: AttributeTemplate[] = [
     values: ['6 Months', '1 Year', '2 Years', '3 Years', '5 Years'],
   },
   {
-    name: 'Water Resistant',
-    slug: 'water-resistant',
-    type: 'BOOLEAN',
-    values: ['Yes', 'No'],
-  },
-  {
-    name: 'Wireless',
-    slug: 'wireless',
-    type: 'BOOLEAN',
-    values: ['Yes', 'No'],
-  },
-  {
     name: 'Discount',
     slug: 'discount',
     type: 'RANGE',

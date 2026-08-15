@@ -1,11 +1,11 @@
 import { CategoryService } from '@/entities/category/api/category.service'
 import { ProductService } from '@/entities/product/api/product.service'
+import { ProductFilterDto } from '@/entities/product/types/product.interface'
 
 export const CategoryCatalogService = {
-  async getCategoryData(slug: string) {
+  async getCategoryData(slug: string, filterDto: ProductFilterDto, attributeFilters: Record<string, string[]>) {
     const category = await CategoryService.getBySlug(slug)
-    const products = await ProductService.getProductByCategory(slug, { page: 1, perPage: 20 })
-
+    const products = await ProductService.getProductByCategory(slug, filterDto, attributeFilters)
     return {
       category,
       products,

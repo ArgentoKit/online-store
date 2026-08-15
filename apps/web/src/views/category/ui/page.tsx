@@ -13,9 +13,9 @@ interface CategoryProps {
   products: {
     items: IProduct[]
     meta: {
-      page: number
-      perPage: number
-      totalPages: number
+      page: string
+      perPage: string
+      totalPages: string
       hasNextPage: boolean
       hasPrevPage: boolean
     }

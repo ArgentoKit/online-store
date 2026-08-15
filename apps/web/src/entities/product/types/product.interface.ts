@@ -23,3 +23,11 @@ export interface productPayload {
   images?: string[]
   categoryId?: string
 }
+
+export interface ProductFilterDto {
+  page?: string
+  perPage?: string
+  sort?: string
+  priceMin?: string
+  priceMax?: string
+}

@@ -1,9 +1,9 @@
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager'
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from 'generated/prisma/client'
 import { PaginationDto } from '@/pagination/pagination.dto'
 import { PaginationService } from '@/pagination/pagination.service'
 import { PrismaService } from '@/prisma.service'
+import { CategoryTreeService } from '@/shared/modules/category-tree.service'
 import { generateSlug } from '@/utils/generate-slug'
 import { GetAllProductDto, ProductSortByEnum } from './dto/get-all-product.dto'
 import { ProductDto } from './dto/product.dto'
@@ -15,7 +15,7 @@ export class ProductService {
   constructor(
     private prisma: PrismaService,
     private paginationService: PaginationService,
-    @Inject(CACHE_MANAGER) private cache: Cache
+    private categoryTreeService: CategoryTreeService
   ) {}
 
   private resolveSort(sort?: string): Prisma.ProductOrderByWithRelationInput {
@@ -131,7 +131,7 @@ export class ProductService {
       throw new NotFoundException('Category not found')
     }
 
-    const categoryIds = await this.getCategoryIdsWithChildren(category.id)
+    const categoryIds = await this.categoryTreeService.getCategoryIdsWithChildren(category.id)
     const { page, perPage, skip } = this.paginationService.getPagination(dto)
 
     const where: Prisma.ProductWhereInput = {
@@ -190,26 +190,6 @@ export class ProductService {
       items,
       meta: this.paginationService.getMeta(total, page, perPage),
     }
-  }
-
-  async getCategoryIdsWithChildren(categoryId: string): Promise<string[]> {
-    const cacheKey = `category-tree:${categoryId}`
-    const cached = await this.cache.get<string[]>(cacheKey)
-    if (cached) return cached
-
-    const result = await this.prisma.$queryRaw<{ id: string }[]>`
-      WITH RECURSIVE category_tree AS (
-      SELECT id FROM "Category" WHERE id = ${categoryId}
-      UNION ALL
-      SELECT c.id FROM "Category" c
-      INNER JOIN category_tree ct ON c.parent_id = ct.id
-    )
-    SELECT id FROM category_tree
-    `
-    const ids = result.map((r) => r.id)
-
-    await this.cache.set(cacheKey, ids, 60 * 60 * 1000)
-    return ids
   }
 
   async getSimilar(id: string) {

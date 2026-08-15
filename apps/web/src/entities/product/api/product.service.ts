@@ -1,6 +1,6 @@
 import { instance } from '@/shared/api/api.interceptor'
 import { API_URL } from '@/shared/config/api.config'
-import { IProduct, productPayload } from '../types/product.interface'
+import { IProduct, ProductFilterDto, productPayload } from '../types/product.interface'
 
 interface GetProductsResponse {
   products: IProduct[]
@@ -47,18 +47,24 @@ export const ProductService = {
 
   async getProductByCategory(
     categorySlug: string,
-    pagination?: { page?: number; perPage?: number }
+    pagination?: ProductFilterDto,
+    attributeFilters: Record<string, string[]> = {}
   ): Promise<{
     items: IProduct[]
-    meta: { page: number; perPage: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean }
+    meta: { page: string; perPage: string; totalPages: string; hasNextPage: boolean; hasPrevPage: boolean }
   }> {
+    const params = {
+      ...pagination,
+      ...Object.fromEntries(Object.entries(attributeFilters).map(([key, value]) => [key, value.join(',')])),
+    }
+
     const { data } = await instance<{
       items: IProduct[]
-      meta: { page: number; perPage: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean }
+      meta: { page: string; perPage: string; totalPages: string; hasNextPage: boolean; hasPrevPage: boolean }
     }>({
       url: API_URL.product(`/by-category/${categorySlug}`),
       method: 'GET',
-      params: pagination,
+      params,
     })
 
     return data
