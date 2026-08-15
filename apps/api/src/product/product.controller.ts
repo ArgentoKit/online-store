@@ -39,11 +39,13 @@ export class ProductController {
     return this.productService.getSimilar(id)
   }
 
+  @UsePipes(new ValidationPipe())
   @Get('by-slug/:slug')
   async getProductBySlug(@Param('slug') slug: string) {
     return this.productService.bySlug(slug)
   }
 
+  @UsePipes(new ValidationPipe())
   @Get('by-category/:categorySlug')
   async getProductsByCategory(
     @Param('categorySlug') categorySlug: string,

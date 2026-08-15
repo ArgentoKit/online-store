@@ -18,14 +18,14 @@ export class ProductService {
     private categoryTreeService: CategoryTreeService
   ) {}
 
-  private resolveSort(sort?: string): Prisma.ProductOrderByWithRelationInput {
+  private resolveSort(sort?: ProductSortByEnum): Prisma.ProductOrderByWithRelationInput {
     switch (sort) {
-      case 'price_asc':
+      case ProductSortByEnum.LOW_PRICE:
         return { price: 'asc' }
-      case 'price_desc':
+      case ProductSortByEnum.HIGH_PRICE:
         return { price: 'desc' }
-      case 'newest':
-        return { createdAt: 'desc' }
+      case ProductSortByEnum.OLDEST:
+        return { createdAt: 'asc' }
       default:
         return { createdAt: 'desc' }
     }

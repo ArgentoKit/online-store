@@ -28,4 +28,8 @@ export class CategoryTreeService {
     await this.cache.set(cacheKey, ids, 60 * 60 * 1000)
     return ids
   }
+
+  async invalidateTree(categoryId: string) {
+    await this.cache.del(`category-tree:${categoryId}`)
+  }
 }

@@ -24,4 +24,10 @@ export const returnProductObjectFullest: Prisma.ProductSelect = {
       },
     },
   },
+  attributes: {
+    select: {
+      attribute: { select: { name: true, slug: true, unit: true } },
+      value: { select: { value: true } },
+    },
+  },
 }

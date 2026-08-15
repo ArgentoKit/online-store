@@ -66,22 +66,19 @@ export class CategoryService {
 
   async create(dto: CategoryDto) {
     if (dto.parentId) {
-      const parentCategory = await this.prisma.category.findUnique({
-        where: { id: dto.parentId },
-      })
-
-      if (!parentCategory) {
-        throw new NotFoundException('Parent category not found')
-      }
+      const parentCategory = await this.prisma.category.findUnique({ where: { id: dto.parentId } })
+      if (!parentCategory) throw new NotFoundException('Parent category not found')
     }
 
-    return this.prisma.category.create({
-      data: {
-        name: dto.name,
-        slug: generateSlug(dto.name),
-        parentId: dto.parentId || null,
-      },
+    const category = await this.prisma.category.create({
+      data: { name: dto.name, slug: generateSlug(dto.name), parentId: dto.parentId || null },
     })
+
+    if (dto.parentId) {
+      await this.categoryTreeService.invalidateTree(dto.parentId)
+    }
+
+    return category
   }
 
   async update(id: string, dto: CategoryDto) {
@@ -95,8 +92,11 @@ export class CategoryService {
   }
 
   async delete(id: string) {
-    return this.prisma.category.delete({
-      where: { id },
-    })
+    const category = await this.prisma.category.findUnique({ where: { id }, select: { parentId: true } })
+    const deleted = await this.prisma.category.delete({ where: { id } })
+    if (category?.parentId) {
+      await this.categoryTreeService.invalidateTree(category.parentId)
+    }
+    return deleted
   }
 }
