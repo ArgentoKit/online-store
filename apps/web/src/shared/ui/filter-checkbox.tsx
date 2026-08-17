@@ -1,3 +1,4 @@
+import type { Checkbox as CheckboxPrimitive } from 'radix-ui'
 import { Checkbox } from './checkbox'
 import { Label } from './label'
 
@@ -5,7 +6,7 @@ export interface FilterCheckboxProps {
   text: string
   value: string
   endAdornment?: React.ReactNode
-  onCheckedChange?: (checked: boolean) => void
+  onCheckedChange?: (checked: CheckboxPrimitive.CheckedState) => void
   checked?: boolean
 }
 

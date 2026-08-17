@@ -28,19 +28,19 @@ const ATTRIBUTE_TEMPLATES: AttributeTemplate[] = [
   {
     name: 'Size',
     slug: 'size',
-    type: 'SELECT',
+    type: 'MULTISELECT',
     values: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
   },
   {
     name: 'Material',
     slug: 'material',
-    type: 'SELECT',
+    type: 'MULTISELECT',
     values: ['Cotton', 'Polyester', 'Leather', 'Metal', 'Plastic', 'Wood', 'Glass', 'Silicone'],
   },
   {
     name: 'Brand',
     slug: 'brand',
-    type: 'SELECT',
+    type: 'MULTISELECT',
     values: ['Acme', 'Zenith', 'Nova', 'Vertex', 'Orbit', 'Pulse', 'Quantum', 'Titan'],
   },
   {
@@ -54,7 +54,7 @@ const ATTRIBUTE_TEMPLATES: AttributeTemplate[] = [
   {
     name: 'Storage Capacity',
     slug: 'storage-capacity',
-    type: 'SELECT',
+    type: 'MULTISELECT',
     unit: 'GB',
     values: ['32', '64', '128', '256', '512', '1024'],
   },
@@ -69,7 +69,7 @@ const ATTRIBUTE_TEMPLATES: AttributeTemplate[] = [
   {
     name: 'RAM',
     slug: 'ram',
-    type: 'SELECT',
+    type: 'MULTISELECT',
     unit: 'GB',
     values: ['2', '4', '6', '8', '12', '16', '32', '64'],
   },
@@ -84,7 +84,7 @@ const ATTRIBUTE_TEMPLATES: AttributeTemplate[] = [
   {
     name: 'Warranty Period',
     slug: 'warranty-period',
-    type: 'SELECT',
+    type: 'MULTISELECT',
     values: ['6 Months', '1 Year', '2 Years', '3 Years', '5 Years'],
   },
   {

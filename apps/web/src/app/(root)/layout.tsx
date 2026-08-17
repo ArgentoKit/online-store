@@ -10,7 +10,7 @@ export default async function ShopLayout({
   return (
     <>
       <Header bottom={<DefaultBottom />} />
-      <main className='w-full mx-auto overflow-x-clip'>
+      <main className='w-full mx-auto overflow-x-clip overflow-y-visible'>
         <div>{children}</div>
       </main>
       <Footer />

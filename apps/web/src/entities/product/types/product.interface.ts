@@ -1,7 +1,7 @@
 import { ICategoryBase, UnitEnum } from '@/entities/category/types/category.interface'
 import { IReview } from '@/entities/review/types/review.interface'
 
-export const enum ProductSortByEnum {
+export enum ProductSortByEnum {
   HIGH_PRICE = 'high-price',
   LOW_PRICE = 'low-price',
   NEWEST = 'newest',
