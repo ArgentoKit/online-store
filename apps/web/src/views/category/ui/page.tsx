@@ -7,6 +7,7 @@ import { BreadcrumbItemType } from '@/shared/ui/breadcrumbs/breadcrumbs'
 import { Title } from '@/shared/ui/title'
 import { Filters } from '@/widgets/filters'
 import { Sidebar } from '@/widgets/sidebar'
+import { SortType } from '@/widgets/sort-type'
 
 interface CategoryProps {
   category: ICategoryWithFilters
@@ -34,10 +35,15 @@ export function CategoryPage({ category, products }: CategoryProps) {
         <Sidebar>
           <Filters attributes={attributes} priceRange={category.filters.price} />
         </Sidebar>
-        <div className='grid grid-cols-4 gap-x-4.5 gap-y-5 h-fit'>
-          {productItems?.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        <div>
+          <div className='flex justify-end mb-5'>
+            <SortType />
+          </div>
+          <div className='grid grid-cols-4 gap-x-4.5 gap-y-5 h-fit'>
+            {productItems?.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

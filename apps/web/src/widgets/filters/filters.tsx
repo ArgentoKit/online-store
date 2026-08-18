@@ -96,14 +96,18 @@ export function Filters({ attributes, priceRange }: FiltersProps) {
           value={[Number(price.min), Number(price.max)]}
           min={priceRange.min}
           max={priceRange.max}
-          step={1000}
+          step={10}
           onValueChange={([min, max]) => setPrice({ min: String(min), max: String(max) })}
           className='w-[144px] mx-auto'
         />
       </div>
 
       <div>
-        <Accordion type='multiple' defaultValue={attributes.map((a) => a.slug)} className='space-y-4'>
+        <Accordion
+          type='multiple'
+          defaultValue={attributes[0] ? [attributes[0].slug] : undefined}
+          className='space-y-4'
+        >
           {attributes.map((attribute) => (
             <CheckboxFiltersGroup
               key={attribute.slug}
