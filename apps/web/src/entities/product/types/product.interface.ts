@@ -16,6 +16,7 @@ export interface IProduct {
   price: number
   images: string[]
   createdAt: string
+  categories: { category: ICategoryBase }[]
 }
 
 export interface IProductAttributeValue {

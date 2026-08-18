@@ -14,9 +14,9 @@ export default function Home() {
         <div>
           <SectionHeader title='Хиты продаж' href='/popular' className='mb-7.5' />
           <section className='grid grid-cols-5 gap-y-5'>
-            {products?.map((product) => {
-              return <ProductCard key={product.id} product={product} />
-            })}
+            {products?.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </section>
         </div>
         <section>

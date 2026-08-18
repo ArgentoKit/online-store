@@ -16,6 +16,8 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const [selectedColor, setSelectedColor] = useState(1)
+  const categoryName = product.categories?.[0].category.name
+  const categorySlug = categoryName?.toLowerCase().replace(/\s+/g, '-')
 
   return (
     <Card className='relative max-w-[214px] h-fit pt-2.5'>
@@ -27,8 +29,8 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <div className='flex flex-col gap-7.5 px-5 pb-7.5'>
         <div className='flex flex-col'>
-          <a href='/category/smartphones' className='w-fit text-t12 mb-2.5 text-medium-grey hover:text-dark-grey'>
-            Смартфон
+          <a href={`/category/${categorySlug}`} className='w-fit text-t12 mb-2.5 text-medium-grey hover:text-dark-grey'>
+            {categoryName}
           </a>
           <a href='' className='h-12 text-t16 mb-[15px] hover:underline'>
             {product.name}
