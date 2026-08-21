@@ -17,6 +17,11 @@ export class CategoryController {
     return this.categoryService.bySlug(slug)
   }
 
+  @Get('tree')
+  async getTree() {
+    return this.categoryService.getTree()
+  }
+
   @Get(':id')
   @Auth()
   async getById(@Param('id') id: string) {

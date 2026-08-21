@@ -67,3 +67,7 @@ export interface ICategoryWithFilters {
     price: { min: number; max: number }
   }
 }
+
+export interface ICategoryTreeNode extends ICategoryBase {
+  children: ICategoryTreeNode[]
+}

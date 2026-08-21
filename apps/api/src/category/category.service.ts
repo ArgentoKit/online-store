@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from '@/prisma.service'
 import { CategoryTreeService } from '@/shared/modules/category-tree.service'
+import { buildCategoryTree, CategoryTreeNode } from '@/utils/build-category-tree'
 import { generateSlug } from '@/utils/generate-slug'
 import { CategoryDto } from './category.dto'
 import { returnCategoryObject, returnCategoryObjectFullest } from './return-category.object'
@@ -9,7 +11,8 @@ import { returnCategoryObject, returnCategoryObjectFullest } from './return-cate
 export class CategoryService {
   constructor(
     private prisma: PrismaService,
-    private categoryTreeService: CategoryTreeService
+    private categoryTreeService: CategoryTreeService,
+    @Inject(CACHE_MANAGER) private cache: Cache
   ) {}
 
   private async getCategoryPriceRange(categoryId: string) {
@@ -64,6 +67,22 @@ export class CategoryService {
     })
   }
 
+  async getTree() {
+    const cacheKey = 'category-tree-full'
+    const cached = await this.cache.get<CategoryTreeNode[]>(cacheKey)
+    if (cached) return cached
+
+    const categories = await this.prisma.category.findMany({
+      select: returnCategoryObject,
+      orderBy: { name: 'asc' },
+    })
+
+    const tree = buildCategoryTree(categories)
+    await this.cache.set(cacheKey, tree, 60 * 60 * 1000)
+
+    return tree
+  }
+
   async create(dto: CategoryDto) {
     if (dto.parentId) {
       const parentCategory = await this.prisma.category.findUnique({ where: { id: dto.parentId } })
@@ -78,10 +97,14 @@ export class CategoryService {
       await this.categoryTreeService.invalidateTree(dto.parentId)
     }
 
+    await this.cache.del('category-tree-full')
+
     return category
   }
 
   async update(id: string, dto: CategoryDto) {
+    await this.cache.del('category-tree-full')
+
     return this.prisma.category.update({
       where: { id },
       data: {
@@ -97,6 +120,9 @@ export class CategoryService {
     if (category?.parentId) {
       await this.categoryTreeService.invalidateTree(category.parentId)
     }
+
+    await this.cache.del('category-tree-full')
+
     return deleted
   }
 }

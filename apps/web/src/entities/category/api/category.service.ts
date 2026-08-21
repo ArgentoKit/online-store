@@ -1,6 +1,6 @@
 import { instance } from '@/shared/api/api.interceptor'
 import { API_URL } from '@/shared/config/api.config'
-import { ICategory, ICategoryBase, ICategoryWithFilters } from '../types/category.interface'
+import { ICategory, ICategoryBase, ICategoryTreeNode, ICategoryWithFilters } from '../types/category.interface'
 
 export const CategoryService = {
   async getAll() {
@@ -9,6 +9,14 @@ export const CategoryService = {
       method: 'GET',
     })
 
+    return response.data
+  },
+
+  async getTree() {
+    const response = await instance<ICategoryTreeNode[]>({
+      url: API_URL.category('/tree'),
+      method: 'GET',
+    })
     return response.data
   },
 
