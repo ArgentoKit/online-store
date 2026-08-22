@@ -23,27 +23,27 @@ export class CategoryController {
   }
 
   @Get(':id')
-  @Auth('admin')
+  @Auth('ADMIN')
   async getById(@Param('id') id: string) {
     return this.categoryService.byId(id)
   }
 
   @HttpCode(200)
-  @Auth('admin')
+  @Auth('ADMIN')
   @Post()
   async create(@Body() dto: CategoryDto) {
     return this.categoryService.create(dto)
   }
 
   @UsePipes(new ValidationPipe())
-  @Auth('admin')
+  @Auth('ADMIN')
   @Put(':id')
   async update(@Param('id') id: string, @Body() dto: CategoryDto) {
     return this.categoryService.update(id, dto)
   }
 
   @HttpCode(200)
-  @Auth('admin')
+  @Auth('ADMIN')
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.categoryService.delete(id)

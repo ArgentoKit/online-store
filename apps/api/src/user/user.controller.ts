@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @Delete('profile')
-  @Auth('admin')
+  @Auth('ADMIN')
   async deleteUser(@CurrentUser('id') id: string) {
     return this.userService.deleteUser(id)
   }

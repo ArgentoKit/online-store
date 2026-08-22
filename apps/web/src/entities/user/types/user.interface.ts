@@ -1,3 +1,5 @@
+export type UserRole = 'USER' | 'ADMIN'
+
 export interface IUser {
   id: string
   email: string
@@ -5,7 +7,7 @@ export interface IUser {
   name: string
   avatarPath: string
   phone: string | null
-  role: 'USER' | 'ADMIN'
+  role: UserRole
 }
 
 export interface IUserState {
