@@ -16,7 +16,7 @@ export class ReviewController {
 
   @UsePipes(new ValidationPipe())
   @Post('product/:productId')
-  @Auth()
+  @Auth('admin')
   async createReview(@CurrentUser('id') id: string, @Body() dto: ReviewDto, @Param('productId') productId: string) {
     return this.reviewService.create(id, dto, productId)
   }

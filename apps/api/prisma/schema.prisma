@@ -7,6 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRoleEnum {
+  USER
+  ADMIN
+}
+
 enum OrderStatusEnum {
   PENDING
   PAYED
@@ -45,7 +50,8 @@ enum UnitEnum {
 }
 
 model User {
-  id String @id @default(cuid())
+  id   String       @id @default(cuid())
+  role UserRoleEnum @default(USER)
 
   email      String @unique
   password   String

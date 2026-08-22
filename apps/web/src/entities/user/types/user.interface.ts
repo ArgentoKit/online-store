@@ -5,6 +5,7 @@ export interface IUser {
   name: string
   avatarPath: string
   phone: string | null
+  role: 'USER' | 'ADMIN'
 }
 
 export interface IUserState {

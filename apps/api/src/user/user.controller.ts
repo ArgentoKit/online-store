@@ -1,6 +1,6 @@
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Put, UsePipes, ValidationPipe } from '@nestjs/common'
 import { Auth } from '@/auth/decorators/auth.decorator'
 import { CurrentUser } from '@/auth/decorators/user.decorator'
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Put, UsePipes, ValidationPipe } from '@nestjs/common'
 import { UserDto } from './user.dto'
 import { UserService } from './user.service'
 
@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @Delete('profile')
-  @Auth()
+  @Auth('admin')
   async deleteUser(@CurrentUser('id') id: string) {
     return this.userService.deleteUser(id)
   }

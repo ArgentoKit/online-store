@@ -1,15 +1,17 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
-import { PrismaService } from '@/prisma.service'
 import { getJwtConfig } from '@/config/jwt.config'
-import { AuthService } from './auth.service'
+import { PrismaService } from '@/prisma.service'
 import { AuthController } from './auth.controller'
+import { AuthService } from './auth.service'
+import { RolesGuard } from './guards/roles.guard'
 import { JwtStrategy } from './jwt.strategy'
 
+@Global()
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, PrismaService],
+  providers: [AuthService, JwtStrategy, PrismaService, RolesGuard],
   imports: [
     ConfigModule,
     JwtModule.registerAsync({
@@ -18,5 +20,6 @@ import { JwtStrategy } from './jwt.strategy'
       useFactory: getJwtConfig,
     }),
   ],
+  exports: [RolesGuard],
 })
 export class AuthModule {}
